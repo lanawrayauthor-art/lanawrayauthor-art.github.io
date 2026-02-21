@@ -148,24 +148,11 @@ a:hover { opacity: 0.8; }
 .book-feature {
     display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center;
 }
-.book-mock {
-    width: 220px; height: 320px;
-    background: linear-gradient(135deg, #1a0800, #2a1200);
-    border: 2px solid var(--accent);
+.book-cover-img {
+    width: 260px; height: auto;
     border-radius: 4px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 24px; text-align: center;
-    box-shadow: 0 20px 60px rgba(249,115,22,0.15);
-    margin: 0 auto;
-}
-.book-mock-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px; font-weight: 700; color: var(--accent);
-    line-height: 1.2; margin-bottom: 16px;
-}
-.book-mock-author {
-    font-size: 13px; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 2px;
+    box-shadow: 0 20px 60px rgba(249,115,22,0.2);
+    display: block; margin: 0 auto;
 }
 .book-info h2 {
     font-family: 'Playfair Display', serif;
