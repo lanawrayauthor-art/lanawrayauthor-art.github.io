@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Resources — Lana Wray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="free.html" class="active">Free Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<section class="section" style="padding-top: 140px;">
+    <div class="container">
+        <h2 class="section-title">Free Resources</h2>
+
+        <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
+
+            <div class="resource-card">
+                <div style="font-size: 48px; margin-bottom: 16px;">🧪</div>
+                <h3>Burnout Self-Check</h3>
+                <p>A quick 10-question assessment to understand where you are on the burnout spectrum. Based on the full 25-question tool from the workbook.</p>
+                <p style="color: var(--accent); font-weight: 500; margin-top: 16px;">Coming soon</p>
+            </div>
+
+            <div class="resource-card">
+                <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+                <h3>Chapter 1: Free Preview</h3>
+                <p>Read the first chapter of <em>Wired to Burn Out</em> — understand the neuroscience of why your brain got stuck, and what it takes to unstick it.</p>
+                <p style="color: var(--accent); font-weight: 500; margin-top: 16px;">Coming soon</p>
+            </div>
+
+            <div class="resource-card">
+                <div style="font-size: 48px; margin-bottom: 16px;">🗓️</div>
+                <h3>7-Day Nervous System Reset</h3>
+                <p>A free email sequence with one vagus nerve exercise per day. Simple, science-backed, takes less than 10 minutes daily.</p>
+                <p style="color: var(--accent); font-weight: 500; margin-top: 16px;">Coming soon</p>
+            </div>
+
+            <div class="resource-card">
+                <div style="font-size: 48px; margin-bottom: 16px;">💬</div>
+                <h3>Boundary Scripts Cheat Sheet</h3>
+                <p>Word-for-word scripts for saying no at work, pushing back on scope creep, and protecting your recovery time. PDF download.</p>
+                <p style="color: var(--accent); font-weight: 500; margin-top: 16px;">Coming soon</p>
+            </div>
+
+        </div>
+
+        <div class="center" style="margin-top: 60px;">
+            <p style="color: var(--text-muted); margin-bottom: 16px;">Want to be notified when these drop?</p>
+            <a href="mailto:lanawray.author@gmail.com?subject=Notify me about free resources" class="btn btn-primary">Get Notified</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Books</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+</body>
+</html>

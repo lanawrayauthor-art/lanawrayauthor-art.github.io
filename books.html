@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Tools — Lana Wray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html" class="active">Books</a>
+            <a href="free.html">Free Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<section class="section" style="padding-top: 140px;">
+    <div class="container">
+        <h2 class="section-title">Books & Tools</h2>
+        <p class="center" style="color: var(--text-muted); margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">Evidence-based resources for burnout recovery, HR professionals, and high-performing teams.</p>
+
+        <div class="book-grid">
+
+            <!-- Main Book -->
+            <div class="book-card">
+                <span class="tag">📖 Workbook</span>
+                <h3>Wired to Burn Out</h3>
+                <p class="price">$9.99</p>
+                <p>A neuroscience-based recovery workbook with a 25-question burnout assessment, practical protocols, boundary scripts, and a complete 90-day recovery plan.</p>
+                <a href="https://www.amazon.com/dp/B0F1ZJR181" target="_blank" class="btn btn-primary" style="width:100%;text-align:center;">Get on Amazon</a>
+            </div>
+
+            <!-- Gumroad Products -->
+            <div class="book-card">
+                <span class="tag">🤖 AI Kit</span>
+                <h3>Performance Review AI Prompt Kit</h3>
+                <p class="price">$29</p>
+                <p>100+ copy-paste AI prompts for ChatGPT & Claude — self-reviews, manager reviews, peer feedback, goal-setting, and difficult conversations.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+            <div class="book-card">
+                <span class="tag">⚙️ Automation</span>
+                <h3>n8n HR Automation Pack</h3>
+                <p class="price">$39</p>
+                <p>15 pre-built no-code workflows that automate onboarding, PTO requests, review cycles, offboarding, and more. Import into n8n and go.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+            <div class="book-card">
+                <span class="tag">📊 Analytics</span>
+                <h3>HR Analytics Dashboard Blueprint</h3>
+                <p class="price">$34</p>
+                <p>Build an HR analytics dashboard from scratch — turnover prediction, engagement scoring, headcount planning. Templates for Google Sheets & Notion.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+            <div class="book-card">
+                <span class="tag">🔥 For Managers</span>
+                <h3>Burnout Assessment Kit for Managers</h3>
+                <p class="price">$24</p>
+                <p>Spot burnout in your team before it's too late. Assessment tools, conversation scripts, and intervention playbooks for people managers.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+            <div class="book-card">
+                <span class="tag">🌍 Remote Work</span>
+                <h3>Remote Team Culture Toolkit</h3>
+                <p class="price">$29</p>
+                <p>Build authentic culture in distributed teams. Async rituals, virtual team-building that doesn't suck, and communication frameworks.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+            <div class="book-card">
+                <span class="tag">🤝 M&A</span>
+                <h3>M&A People Integration Playbook</h3>
+                <p class="price">$49</p>
+                <p>The HR playbook for mergers and acquisitions. Culture assessment, retention strategies, Day 1 plans, and integration timelines.</p>
+                <a href="https://lanawray.gumroad.com" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;">Get on Gumroad</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Books</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Lana Wray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="free.html">Free Resources</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<section class="section" style="padding-top: 140px;">
+    <div class="container">
+        <div class="about-grid">
+            <div>
+                <div class="avatar-circle">
+                    <span>LW</span>
+                </div>
+            </div>
+            <div class="about-text">
+                <p class="overline">About the Author</p>
+                <h2>Lana Wray</h2>
+                <p>I spent over a decade in corporate HR — from startups to publicly traded companies, from building teams of 10 to restructuring organizations of thousands. I've been a Chief Human Resources Officer, an HR Business Partner at senior director level, and the person everyone came to when things got hard.</p>
+                <p>I also burned out. Badly.</p>
+                <p>When I finally stopped long enough to understand what had happened to me, I discovered that burnout isn't a motivation problem — it's a neurological one. My background in psychology and neurobiology helped me see the patterns: the HPA axis dysregulation, the chronic cortisol exposure, the prefrontal cortex going offline.</p>
+                <p>I wrote <em>Wired to Burn Out</em> because I needed a book like this and it didn't exist. Something that combined real neuroscience with practical, actionable recovery tools. Not platitudes. Not "self-care Sundays." Actual protocols backed by research.</p>
+                <p>My work sits at the intersection of neuroscience, corporate culture, and human performance. I write for people who have given too much to organizations that took too much — and who are ready to understand their brains and rebuild.</p>
+                <p style="color: var(--accent); font-weight: 500; margin-top: 24px;">The science is clear. Recovery is possible. Let's start.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Books</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+</body>
+</html>
