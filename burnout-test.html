@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burnout Self-Check — Am I Burning Out? | Lana Wray</title>
+    <meta name="description" content="Free 10-question burnout self-assessment backed by neuroscience. Find out where you are on the burnout spectrum in 3 minutes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-container { max-width: 720px; margin: 0 auto; }
+        .quiz-intro { text-align: center; margin-bottom: 48px; }
+        .quiz-intro p { color: var(--text-muted); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            transition: border-color 0.3s;
+        }
+        .question-card.answered { border-color: var(--accent); }
+        .question-card .q-number {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .question-card h3 {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .question-card .q-note {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .rating-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .rating-btn {
+            flex: 1;
+            min-width: 56px;
+            padding: 12px 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: inherit;
+        }
+        .rating-btn:hover { border-color: var(--accent); color: var(--text); }
+        .rating-btn.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            font-weight: 700;
+        }
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .submit-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: opacity 0.2s;
+        }
+        .submit-btn:hover { opacity: 0.9; }
+        .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .result-card {
+            display: none;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 48px 32px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .result-card.visible { display: block; }
+        .result-zone {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .result-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .result-range {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        .result-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 540px;
+            margin: 0 auto 32px;
+            text-align: left;
+        }
+        .result-cta {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        .result-cta p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .score-bar {
+            display: flex;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 24px 0 8px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .score-bar .zone-green { background: #22c55e; flex: 22; }
+        .score-bar .zone-yellow { background: #eab308; flex: 14; }
+        .score-bar .zone-red { background: #ef4444; flex: 14; }
+        .score-marker {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            height: 20px;
+        }
+        .score-dot {
+            position: absolute;
+            top: 0;
+            width: 3px;
+            height: 16px;
+            background: var(--text);
+            border-radius: 1px;
+            transform: translateX(-50%);
+        }
+
+        .other-tests {
+            margin-top: 60px;
+            text-align: center;
+        }
+        .other-tests h3 {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="free.html" class="active">Free Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<section class="section" style="padding-top: 140px;">
+    <div class="container">
+        <div class="quiz-container" id="quizSection">
+
+            <div class="quiz-intro">
+                <h2 class="section-title">Are You Burning Out?</h2>
+                <p style="margin-bottom: 12px;">A 10-question self-assessment backed by neuroscience.</p>
+                <p>Rate each statement honestly. There are no wrong answers — only useful ones.</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div id="questions"></div>
+
+            <div class="submit-area">
+                <button class="submit-btn" id="submitBtn" disabled onclick="showResult()">See My Results</button>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;" id="submitHint">Answer all 10 questions to see your results</p>
+            </div>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-zone" id="resultEmoji"></div>
+            <div class="result-score" id="resultScore"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <div class="result-range" id="resultRange"></div>
+
+            <div class="score-bar">
+                <div class="zone-green"></div>
+                <div class="zone-yellow"></div>
+                <div class="zone-red"></div>
+            </div>
+            <div class="score-marker">
+                <div class="score-dot" id="scoreDot"></div>
+            </div>
+
+            <div class="result-text" id="resultText"></div>
+
+            <div class="result-cta">
+                <p id="resultCta"></p>
+                <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="display:inline-block;">Get "Wired to Burn Out" on Amazon</a>
+                <p style="margin-top: 16px;"><a href="books.html">Browse all tools →</a></p>
+            </div>
+
+            <div class="other-tests">
+                <h3>More Free Assessments</h3>
+                <p style="color: var(--text-muted);">Coming soon — Manager Burnout Risk, Team Health Check, Remote Culture Score</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Books</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}
+
+const questions = [
+    {
+        q: "I feel emotionally drained at the end of my workday.",
+        note: "Chronic emotional depletion is one of the earliest signs of burnout. Pay attention to how you feel at 6 PM — not just at 6 AM."
+    },
+    {
+        q: "I dread Monday mornings or the start of my work week.",
+        note: "A persistent sense of dread signals that your nervous system is associating work with threat."
+    },
+    {
+        q: "I have trouble falling asleep or staying asleep because of work-related thoughts.",
+        note: "When your brain can't switch off, it's stuck in a stress loop. Burnout disrupts your body's ability to downregulate."
+    },
+    {
+        q: "I feel cynical or detached about my work, colleagues, or the company's mission.",
+        note: "Cynicism is your psyche's defense mechanism. When caring becomes too costly, your brain protects you by making you stop caring."
+    },
+    {
+        q: "I struggle to concentrate or make decisions that used to be easy.",
+        note: "Chronic stress shrinks the prefrontal cortex — the part of your brain responsible for focus and decision-making. It's not laziness. It's neurology."
+    },
+    {
+        q: "I feel like my work doesn't matter, no matter how much effort I put in.",
+        note: "Reduced sense of accomplishment is a core dimension of clinical burnout. When effort fails to produce meaning, your motivation shuts down."
+    },
+    {
+        q: "I get sick more often than I used to — headaches, colds, stomach issues, muscle tension.",
+        note: "Prolonged cortisol exposure suppresses your immune system and creates chronic inflammation. Your body is keeping score."
+    },
+    {
+        q: "I find it hard to be present with family or friends after work.",
+        note: "When work consumes your cognitive and emotional resources, there's nothing left for the people who matter most."
+    },
+    {
+        q: "I rely on caffeine, alcohol, food, or screen time to cope with stress more than I'd like.",
+        note: "Unhealthy coping mechanisms are a signal, not a character flaw. Your nervous system reaches for whatever provides immediate relief."
+    },
+    {
+        q: "I've thought about quitting, but I feel too exhausted to even look for something new.",
+        note: "The burnout trap: too depleted to stay, too depleted to leave. You're not stuck because you're weak — burnout consumed the resources you'd need to change."
+    }
+];
+
+const labels = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+const answers = new Array(10).fill(0);
+
+const container = document.getElementById('questions');
+questions.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'q' + i;
+    card.innerHTML = `
+        <div class="q-number">Question ${i + 1} of 10</div>
+        <h3>${item.q}</h3>
+        <div class="q-note">${item.note}</div>
+        <div class="rating-buttons">
+            ${[1,2,3,4,5].map(v => `<button class="rating-btn" onclick="selectAnswer(${i}, ${v}, this)">${v}</button>`).join('')}
+        </div>
+        <div class="rating-labels">
+            <span>Never</span>
+            <span>Always</span>
+        </div>
+    `;
+    container.appendChild(card);
+});
+
+let answeredCount = 0;
+
+function selectAnswer(qi, val, btn) {
+    const wasAnswered = answers[qi] > 0;
+    answers[qi] = val;
+    if (!wasAnswered) answeredCount++;
+
+    const card = document.getElementById('q' + qi);
+    card.classList.add('answered');
+    card.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+
+    document.getElementById('progressFill').style.width = (answeredCount / 10 * 100) + '%';
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (answeredCount === 10) {
+        submitBtn.disabled = false;
+        document.getElementById('submitHint').textContent = '';
+    } else {
+        document.getElementById('submitHint').textContent = `${10 - answeredCount} question${10 - answeredCount > 1 ? 's' : ''} remaining`;
+    }
+}
+
+function showResult() {
+    const total = answers.reduce((a, b) => a + b, 0);
+
+    document.getElementById('quizSection').style.display = 'none';
+    const rc = document.getElementById('resultCard');
+    rc.classList.add('visible');
+
+    document.getElementById('resultScore').textContent = total + ' / 50';
+
+    // Position dot on score bar (10-50 range mapped to 0-100%)
+    const pct = ((total - 10) / 40) * 100;
+    document.getElementById('scoreDot').style.left = pct + '%';
+
+    let emoji, title, range, text, cta;
+
+    if (total <= 22) {
+        emoji = '🟢';
+        title = 'Green Zone — You\'re Managing Well';
+        range = 'Score 10–22';
+        text = `You're in a healthy range. You may experience occasional stress, but you have the resources and recovery capacity to handle it.
+
+This is actually the best time to build resilience habits — not after you're already burned out. Prevention is dramatically easier than recovery.
+
+<strong>Your move:</strong> Keep doing what's working. Build awareness of your stress patterns so you can catch early shifts before they escalate. Consider what boundaries and recovery practices are protecting you — and make sure you don't let them slip.`;
+        cta = 'Even in the green zone, understanding the neuroscience of burnout helps you stay there:';
+    } else if (total <= 36) {
+        emoji = '🟡';
+        title = 'Yellow Zone — Warning Signs Are Present';
+        range = 'Score 23–36';
+        text = `You're showing meaningful signs of chronic stress that could develop into full burnout if left unchecked. This is the most critical zone — because <strong>it's still reversible</strong>, but only if you act now.
+
+Your brain's stress response system is working overtime. The prefrontal cortex (your focus and decision-making center) is under pressure, and your amygdala (threat detection) is becoming more sensitive. You might notice you're more reactive, more forgetful, or more cynical than you used to be.
+
+<strong>Your move:</strong> Identify your top 2–3 stressors and take one concrete action this week to address them. Consider whether your workload, boundaries, or recovery habits need adjustment. This is the inflection point where small changes prevent a major crash.`;
+        cta = 'A structured recovery plan can help you reverse course before it gets worse:';
+    } else {
+        emoji = '🔴';
+        title = 'Red Zone — You\'re in Burnout Territory';
+        range = 'Score 37–50';
+        text = `This score suggests you're experiencing significant burnout symptoms across multiple dimensions — emotional, cognitive, physical, and relational. <strong>This is not something you can push through.</strong>
+
+Your brain and body are telling you something important. Chronic cortisol exposure is likely affecting your prefrontal cortex (brain fog, poor decisions), your immune system (getting sick more), your dopamine system (nothing feels worth doing), and your relationships (can't be present).
+
+You didn't get here overnight, and you won't recover overnight. But recovery IS possible — with the right understanding and a concrete plan.
+
+<strong>Your move:</strong> Prioritize recovery as a non-negotiable. Seek support — from a therapist, a coach, a trusted leader, or a structured recovery framework.`;
+        cta = 'Understanding what burnout does to your brain is the first step to recovery:';
+    }
+
+    document.getElementById('resultEmoji').textContent = emoji;
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultRange').textContent = range;
+    document.getElementById('resultText').innerHTML = text.replace(/\n\n/g, '<br><br>');
+    document.getElementById('resultCta').textContent = cta;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
