@@ -259,14 +259,8 @@
 
             <div class="result-text" id="resultText"></div>
 
-            <div class="result-cta">
-                <p id="resultCta"></p>
-                <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="display:inline-block;">Get "Wired to Burn Out" on Amazon</a>
-                <p style="margin-top: 16px;"><a href="books.html">Browse all tools →</a></p>
-            </div>
-
-            <!-- Subtle email capture -->
-            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+            <!-- Email capture — right after results -->
+            <div style="padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
                 <form id="emailForm" onsubmit="submitEmail(event)" style="max-width: 400px; margin: 0 auto;">
                     <input type="hidden" id="formScore" name="score" value="">
                     <input type="hidden" id="formZone" name="zone" value="">
@@ -282,6 +276,13 @@
                     </label>
                     <p id="emailStatus" style="margin-top: 8px; font-size: 12px; color: var(--accent); display: none;"></p>
                 </form>
+            </div>
+
+            <!-- Amazon CTA — below email -->
+            <div class="result-cta">
+                <p id="resultCta"></p>
+                <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="display:inline-block;">Get "Wired to Burn Out" on Amazon</a>
+                <p style="margin-top: 16px;"><a href="books.html">Browse all tools →</a></p>
             </div>
 
             <div class="other-tests">
