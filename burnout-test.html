@@ -469,9 +469,11 @@ function submitEmail(e) {
     const zone = document.getElementById('formZone').value;
     const status = document.getElementById('emailStatus');
 
-    // Send to MailerLite
+    // Send to MailerLite with score data
     const formData = new FormData();
     formData.append('fields[email]', email);
+    formData.append('fields[burnout_score]', score + '/50');
+    formData.append('fields[burnout_zone]', zone);
     formData.append('ml-submit', '1');
     formData.append('anticsrf', 'true');
 
@@ -482,7 +484,7 @@ function submitEmail(e) {
     .then(r => {
         status.style.display = 'block';
         status.style.color = 'var(--accent)';
-        status.textContent = '✓ Subscribed! We\'ll keep you updated.';
+        status.textContent = '✓ Your results are on the way! Check your inbox.';
         document.getElementById('emailForm').querySelector('button').disabled = true;
         document.getElementById('emailForm').querySelector('button').textContent = 'Sent!';
     })
