@@ -469,11 +469,23 @@ function submitEmail(e) {
     const zone = document.getElementById('formZone').value;
     const status = document.getElementById('emailStatus');
 
+    // Build recommendation based on score
+    let rec = '';
+    const s = parseInt(score);
+    if (s <= 22) {
+        rec = "Green Zone — You're managing well. You're in a healthy range with good recovery capacity. Your move: Keep doing what's working. Build awareness of your stress patterns and protect the boundaries that are keeping you healthy.";
+    } else if (s <= 36) {
+        rec = "Yellow Zone — Warning signs are present. You're showing meaningful signs of chronic stress that could develop into full burnout if left unchecked. This is still reversible — but only if you act now. Your move: Identify your top 2-3 stressors and take one concrete action this week.";
+    } else {
+        rec = "Red Zone — You're in burnout territory. Your brain and body are telling you something important. Chronic stress is affecting your cognition, immune system, and relationships. Recovery IS possible — with the right understanding and a concrete plan. Your move: Prioritize recovery as a non-negotiable. Seek support.";
+    }
+
     // Send to MailerLite with score data
     const formData = new FormData();
     formData.append('fields[email]', email);
     formData.append('fields[burnout_score]', score + '/50');
     formData.append('fields[burnout_zone]', zone);
+    formData.append('fields[burnout_recommendation]', rec);
     formData.append('ml-submit', '1');
     formData.append('anticsrf', 'true');
 
