@@ -95,7 +95,7 @@
             mlData.append('fields[email]', form.querySelector('input[type=email]').value);
             mlData.append('ml-submit', '1');
             mlData.append('anticsrf', 'true');
-            fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180133715222988016/subscribe', {
+            fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180134149231740712/subscribe', {
                 method: 'POST',
                 body: mlData
             }).then(function(){ 
@@ -138,7 +138,7 @@ function sendPolicy(e){
     fd.append('fields[email]',email);
     fd.append('ml-submit','1');
     fd.append('anticsrf','true');
-    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180133715222988016/subscribe',{method:'POST',body:fd})
+    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180134071880385685/subscribe',{method:'POST',body:fd})
     .then(function(){
         var s=document.getElementById('policyStatus');
         s.style.display='block';

@@ -201,7 +201,7 @@ document.getElementById('policyForm').addEventListener('submit', function(e) {
     mlData.append('fields[email]', form.querySelector('input[type=email]').value);
     mlData.append('ml-submit', '1');
     mlData.append('anticsrf', 'true');
-    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180133715222988016/subscribe', {
+    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180134071880385685/subscribe', {
         method: 'POST',
         body: mlData
     }).then(function(){
