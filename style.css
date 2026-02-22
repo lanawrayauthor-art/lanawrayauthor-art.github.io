@@ -219,8 +219,7 @@ a:hover { opacity: 0.8; }
     max-width: 600px; margin: 0 auto;
     display: flex; flex-direction: column;
 }
-.resource-card p { flex: 1; }
-.resource-card .btn { margin-top: auto; }
+.resource-card > :last-child { margin-top: auto; }
 .resource-card h3 { font-size: 24px; margin-bottom: 12px; }
 .resource-card p { color: var(--text-muted); margin-bottom: 24px; }
 
