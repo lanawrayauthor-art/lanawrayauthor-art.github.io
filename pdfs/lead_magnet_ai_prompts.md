@@ -25,7 +25,11 @@ Here are 5 of my best prompts — pulled from the **Performance Review AI Prompt
 
 **Watch for bias.** AI-generated text can inadvertently reflect stereotypes (gender, age, ethnicity, health). Always review output for language that references personal characteristics unrelated to performance. Focus on observable behaviors and measurable results.
 
-**Check your company's policy.** Many organizations have specific guidelines on AI use in HR processes. Ensure compliance before using AI-assisted reviews. Be aware that AI prompts and outputs may be discoverable in legal proceedings — never include sensitive personal attributes or information that could indicate biased intent.
+**Separate fact from formulation.** AI can help you with the writing — the structure, tone, and clarity. But it cannot replace your observations, your notes, and your evidence base. The data must come from you; AI shapes the delivery.
+
+**Check your company's policy.** Ensure AI use in performance reviews doesn't conflict with your organization's policies or local employment law. Never upload sensitive personal data into AI tools without proper authorization.
+
+**Assume everything is discoverable.** AI prompts and outputs may become part of legal proceedings in the event of a dispute — especially around ratings, compensation, or termination decisions. Never include information that could indicate biased intent or that you wouldn't be comfortable explaining in a legal setting.
 
 ---
 
@@ -103,11 +107,14 @@ cross-functional, project-based, etc.]
 
 Here are 2-3 specific things I've observed:
 [List concrete examples — moments, projects, interactions.
-Focus on behaviors and outcomes, not personality traits]
+Focus on behaviors and outcomes, not personality traits.
+Only include what you personally witnessed — do not interpret
+motivations, health, or personal circumstances]
 
 Write peer feedback (150-200 words) that:
 - Highlights specific strengths with concrete behavioral examples
 - Explains the impact of their contributions on our collaboration
+- Stays within the boundaries of your own observations
 - Includes one thoughtful growth suggestion (optional — only if genuine)
 - Feels authentic, not generic
 
@@ -135,7 +142,9 @@ past quarter results]
 
 Help me turn this into 1-2 concrete OKRs (Objectives and Key Results) that:
 - Have a clear, inspiring objective statement
-- Include 2-3 measurable key results per objective
+- Include 2-3 measurable key results per objective that are
+  outcome-based, not activity-based (e.g., "increase NPS by X points"
+  rather than "hold 5 meetings")
 - Are ambitious but achievable in one quarter
 - I can actually influence (not dependent on factors outside my control)
 - Would clearly demonstrate impact in a performance review
@@ -170,6 +179,11 @@ Write a promotion case document (400-500 words) that:
 - Addresses potential objections honestly
 - Includes 2-3 quotes I could request from stakeholders
   (suggest who to ask and what to ask them)
+
+Important: Use only real, verifiable accomplishments and metrics.
+Do not ask AI to fabricate results, inflate numbers, or generate
+fictional stakeholder quotes. Only include what you can back up
+with evidence.
 
 Tone: confident, evidence-based, professional. This should make
 a calibration committee's decision easy.
