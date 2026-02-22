@@ -38,6 +38,20 @@
             </div>
 
             <div class="resource-card">
+                <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
+                <h3>AI in Performance Reviews: Policy Template</h3>
+                <p>A 1-page internal policy template for HR teams. What managers can and cannot do with AI in reviews. Ready to adapt to your organization.</p>
+                <form onsubmit="sendPolicy(event)" style="margin-top: 16px;">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="email" id="policyEmail" placeholder="your@email.com" required
+                            style="flex: 1; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 14px; font-family: inherit;">
+                        <button type="submit" style="padding: 10px 14px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit;">Send</button>
+                    </div>
+                    <p id="policyStatus" style="font-size: 12px; margin-top: 6px; color: var(--accent); display: none;"></p>
+                </form>
+            </div>
+
+            <div class="resource-card">
                 <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
                 <h3>Chapter 1: Free Preview</h3>
                 <p>Read the first chapter of <em>Wired to Burn Out</em> — understand the neuroscience of why your brain got stuck, and what it takes to unstick it.</p>
@@ -85,6 +99,24 @@
     </div>
 </footer>
 
-<script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+<script>
+function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}
+function sendPolicy(e){
+    e.preventDefault();
+    var email=document.getElementById('policyEmail').value;
+    var fd=new FormData();
+    fd.append('email',email);
+    fd.append('request','AI Policy Template');
+    fd.append('_subject','Policy Template Request from '+email);
+    fd.append('_template','table');
+    fd.append('_captcha','false');
+    fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com',{method:'POST',body:fd})
+    .then(function(){
+        var s=document.getElementById('policyStatus');
+        s.style.display='block';
+        s.textContent='✓ Check your inbox!';
+    });
+}
+</script>
 </body>
 </html>
