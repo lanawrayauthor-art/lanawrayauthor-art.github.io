@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Preview — Wired to Burn Out — Lana Wray</title>
+    <meta name="description" content="Read the first chapters of Wired to Burn Out for free. Burnout Self-Assessment, neuroscience of burnout, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .preview-hero {
+            text-align: center;
+            padding: 140px 24px 60px;
+            background: linear-gradient(180deg, #1a0f00 0%, var(--bg) 100%);
+        }
+        .preview-hero img {
+            width: 200px;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(249,115,22,0.25);
+            margin-bottom: 32px;
+        }
+        .preview-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 42px);
+            margin-bottom: 8px;
+        }
+        .preview-hero .sub {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .preview-hero .badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        .chapter {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .chapter-divider {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .chapter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .chapter h3 {
+            font-size: 20px;
+            margin: 36px 0 12px;
+            color: var(--text);
+        }
+        .chapter h4 {
+            font-size: 16px;
+            margin: 28px 0 10px;
+            color: var(--accent);
+        }
+        .chapter p {
+            color: var(--text-muted);
+            line-height: 1.85;
+            margin-bottom: 14px;
+            font-size: 16px;
+        }
+        .chapter strong { color: var(--text); }
+        .chapter em { color: #aaa; }
+        .chapter hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+        .chapter blockquote {
+            border-left: 3px solid var(--accent);
+            margin: 24px 0;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border-radius: 0 8px 8px 0;
+        }
+        .chapter blockquote p { margin-bottom: 6px; font-size: 15px; }
+        .assessment-q {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 10px 0;
+        }
+        .assessment-q .num { color: var(--accent); font-weight: 700; margin-right: 8px; }
+        .assessment-q .scale { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
+        .section-label {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-block;
+            margin: 32px 0 16px;
+        }
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .score-table th, .score-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-size: 15px;
+        }
+        .score-table th {
+            background: var(--bg-card);
+            color: var(--text);
+            font-weight: 600;
+        }
+        .score-table td { color: var(--text-muted); }
+        .score-table td:first-child { font-weight: 600; color: var(--text); }
+        .takeaway {
+            background: linear-gradient(135deg, #1a0f00, var(--bg-card));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        .takeaway p { color: var(--text); font-weight: 500; font-size: 16px; margin: 0; }
+        .preview-end {
+            text-align: center;
+            padding: 60px 24px 80px;
+            background: linear-gradient(180deg, var(--bg) 0%, #1a0f00 100%);
+        }
+        .preview-end h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .preview-end p { color: var(--text-muted); margin-bottom: 8px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .preview-end .continues {
+            list-style: none;
+            padding: 0;
+            margin: 24px auto;
+            max-width: 420px;
+            text-align: left;
+        }
+        .preview-end .continues li {
+            color: var(--text-muted);
+            padding: 6px 0;
+            font-size: 15px;
+        }
+        .preview-end .continues li::before {
+            content: '→ ';
+            color: var(--accent);
+        }
+        .diff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .diff-table th, .diff-table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .diff-table th { background: var(--bg-card); color: var(--text); font-weight: 600; }
+        .diff-table td { color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Shop</a>
+            <a href="free.html" class="active">Free Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="preview-hero">
+    <img src="cover.png" alt="Wired to Burn Out">
+    <h1>Free Preview</h1>
+    <p class="sub">Wired to Burn Out — A Neuroscience-Based Recovery Workbook</p>
+    <p class="sub" style="font-size:14px;">By Lana Wray</p>
+    <span class="badge">📖 Chapter 1 + Chapter 2 Preview</span>
+</div>
+
+<!-- A Note Before We Begin -->
+<div class="chapter" style="padding-top:60px;">
+    <h2>A Note Before We Begin</h2>
+    <p>You picked up this book for a reason.</p>
+    <p>Maybe you wake up exhausted no matter how much you sleep. Maybe you sit at your desk and feel... nothing. Maybe you used to love your work, your life, your people — and now everything feels like sandpaper on raw skin.</p>
+    <p>I want you to know something: <strong>you are not broken.</strong> Your brain is doing exactly what it was designed to do under chronic, unrelenting stress. The problem isn't you. The problem is that modern life demands more from our nervous systems than they were built to handle — so they adapt in ways that keep you going short term, but slowly wire you toward burnout.</p>
+    <p>This workbook is that manual.</p>
+    <p>We're going to look at what's actually happening inside your brain and body when burnout takes hold. Not vague wellness platitudes. Real neuroscience, translated into language that makes sense. And then — because understanding alone doesn't heal — we're going to build your personal recovery plan, one exercise at a time.</p>
+    <p>You'll need a pen. You'll need honesty. And you'll need about ten minutes a day.</p>
+    <p>That's it. Let's begin.</p>
+    <p style="color:var(--accent);font-style:italic;">— Lana</p>
+</div>
+
+<!-- PART 1 -->
+<div class="chapter-divider">Part 1 — What's Happening to You</div>
+
+<!-- Chapter 1 -->
+<div class="chapter">
+    <h2>Chapter 1: Burnout Self-Assessment</h2>
+    <h3>Where Are You Right Now?</h3>
+    <p>Before we talk about what burnout is, let's find out where you stand. The assessment below is not a clinical diagnosis — it's a mirror. It's designed to help you see your current state clearly, so you can track your progress as you work through this book.</p>
+    <p>Answer each question honestly. There are no right or wrong answers. Choose the number that best describes your experience <strong>over the past four weeks.</strong></p>
+    <p style="font-size:14px;color:var(--accent);"><strong>Rating Scale:</strong> 1 = Never · 2 = Rarely · 3 = Sometimes · 4 = Often · 5 = Always</p>
+
+    <hr>
+
+    <span class="section-label">Section A — Exhaustion</span>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Physical &amp; Emotional Depletion</p>
+
+    <div class="assessment-q"><span class="num">1.</span>I feel physically drained by the end of the day, even when I haven't done anything particularly strenuous.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">2.</span>I wake up tired, regardless of how many hours I slept.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">3.</span>Small tasks that used to be easy now feel overwhelming.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">4.</span>I feel emotionally "used up" at the end of most days.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">5.</span>I get sick more often than I used to (colds, headaches, stomach issues).<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">6.</span>I rely on caffeine, sugar, or other stimulants just to get through the day.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+
+    <p style="font-size:14px;font-style:italic;color:var(--text-muted);margin-top:16px;"><em>High scores in Section A suggest your brain and body have been in prolonged "on" mode, without enough time in recovery mode.</em></p>
+
+    <hr>
+
+    <span class="section-label">Section B — Detachment</span>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Cynicism &amp; Disconnection</p>
+
+    <div class="assessment-q"><span class="num">7.</span>I feel emotionally distant from the people around me, even people I care about.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">8.</span>I've become more cynical or sarcastic about my work or daily responsibilities.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">9.</span>I find myself going through the motions without really being present.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">10.</span>I avoid social situations I used to enjoy.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">11.</span>I feel like what I do doesn't really matter.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">12.</span>I have less patience with colleagues, family members, or friends than I used to.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">13.</span>I catch myself thinking, "What's the point?" about my work or the effort I put in.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+
+    <hr>
+
+    <span class="section-label">Section C — Diminished Capacity</span>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Reduced Performance &amp; Sense of Accomplishment</p>
+
+    <div class="assessment-q"><span class="num">14.</span>I have trouble concentrating or making decisions.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">15.</span>I forget things more often than I used to.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">16.</span>I feel less competent at my job or daily tasks than I once did.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">17.</span>Creative thinking feels impossible — my mind is blank or foggy.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">18.</span>I procrastinate on things that used to come naturally to me.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">19.</span>I feel like I'm falling behind, no matter how hard I try.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+
+    <p style="font-size:14px;font-style:italic;color:var(--text-muted);margin-top:16px;"><em>High scores here suggest burnout may be affecting focus, memory, and decision-making — not because you're lazy, but because those circuits have been running on overload.</em></p>
+
+    <hr>
+
+    <span class="section-label">Section D — Physical Warning Signs</span>
+
+    <div class="assessment-q"><span class="num">20.</span>I experience tension in my body (jaw clenching, tight shoulders, back pain) most days.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">21.</span>My appetite has changed significantly — eating much more or much less than usual.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">22.</span>I have trouble falling asleep, staying asleep, or sleeping too much.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">23.</span>I experience heart palpitations, shortness of breath, or chest tightness without physical exertion.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">24.</span>I use alcohol, food, screens, or shopping to numb or escape how I feel.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+    <div class="assessment-q"><span class="num">25.</span>I feel a persistent sense of dread, especially on Sunday evenings or Monday mornings.<div class="scale">[ 1 — 2 — 3 — 4 — 5 ]</div></div>
+
+    <hr>
+
+    <h3>Scoring Guide</h3>
+    <p>Add up your totals from all four sections.</p>
+
+    <table class="score-table">
+        <tr><th>Score</th><th>Zone</th><th>What It Means</th></tr>
+        <tr><td>25–44</td><td>✅ Thriving</td><td>You're managing well. This book gives you prevention tools.</td></tr>
+        <tr><td>45–64</td><td>⚠️ Stressed</td><td>You're carrying more than you realize. Early intervention is powerful.</td></tr>
+        <tr><td>65–89</td><td>🔶 Burning</td><td>Your system is under significant strain. Recovery is urgent and possible.</td></tr>
+        <tr><td>90–125</td><td>🔴 Burnt Out</td><td>Your nervous system is in crisis mode. Please consider professional support too.</td></tr>
+    </table>
+
+    <blockquote>
+        <p><strong>Your Turn</strong></p>
+        <p>My grand total score is: ___</p>
+        <p>My zone is: ___</p>
+        <p>The section where I scored highest is: ___</p>
+        <p>When I see my score, I feel: ___</p>
+        <p>One thing that doesn't surprise me:</p>
+        <p>One thing that does surprise me:</p>
+    </blockquote>
+
+    <h3>A Word About Your Score</h3>
+    <p>Whatever your number, I want to be clear: <strong>this is a starting point, not a verdict.</strong></p>
+    <p>A high score does not mean you're weak. It means your environment has been asking too much of your nervous system for too long. You are not your score. You are the person who cared enough to take this test.</p>
+
+    <div class="takeaway">
+        <p><strong>Chapter 1 Takeaway:</strong> Burnout is measurable. Naming where you are is the first act of recovery.</p>
+    </div>
+</div>
+
+<!-- Chapter 2 -->
+<div class="chapter-divider">Chapter 2</div>
+
+<div class="chapter">
+    <h2>Burnout ≠ Tired</h2>
+
+    <h3>The Word That Changed Everything</h3>
+    <p>In 1974, a German-American psychologist named Herbert Freudenberger was working at a free clinic in New York's East Village. The volunteers there had started their work full of passion and idealism. But after months of grueling hours and emotionally demanding patients, something happened to them. They became exhausted. Irritable. Cynical. They stopped caring about the people they'd come to help.</p>
+    <p>Freudenberger recognized this pattern — partly because he saw it in his volunteers, and partly because he saw it in himself. He borrowed a word from the slang of the time — "burnout" was used to describe people depleted by chronic drug use — and applied it to what he saw in overworked helpers.</p>
+    <p>It was the first time someone gave a name to the thing millions of people were feeling but couldn't articulate: <em>I'm not just tired. Something deeper is wrong.</em></p>
+
+    <h3>The Three Dimensions: Christina Maslach's Framework</h3>
+    <p>In the early 1980s, social psychologist Christina Maslach built Freudenberger's observation into a rigorous framework. She identified three core dimensions of burnout:</p>
+
+    <h4>1. Emotional Exhaustion</h4>
+    <p>The feeling of being completely drained — not just physically tired, but emotionally wrung out. It's the depletion that sleep doesn't fix, because it's not about how many hours you rested. It's about how long your stress systems have been switched on without recovery.</p>
+
+    <h4>2. Depersonalization (Cynicism)</h4>
+    <p>The protective wall your brain builds when empathy becomes too expensive. You start treating people like objects. It's not that you've become a bad person — it's that your brain has decided caring costs too much energy.</p>
+
+    <h4>3. Reduced Personal Accomplishment</h4>
+    <p>Even when you're still performing at a reasonable level, you feel like you're failing. Your internal measuring stick is broken. You feel ineffective, incompetent, like a fraud — even when the evidence says otherwise.</p>
+
+    <p>Maslach's insight was revolutionary: <strong>burnout isn't just exhaustion — it's a pattern of exhaustion, withdrawal, and a collapsed sense of self-efficacy.</strong> That's what makes it different from simply being tired.</p>
+
+    <h3>Burnout vs. Being Tired</h3>
+    <p>Let's be precise about this, because the difference matters for your recovery.</p>
+    <p><strong>Tiredness</strong> is a signal. Your body says: "I need rest." You rest, and you recover. The system works.</p>
+    <p><strong>Burnout</strong> is a systems problem. Your body has been sending the signal for so long that the signal no longer leads to real recovery. You sleep all weekend and Monday morning feels exactly the same.</p>
+
+    <table class="diff-table">
+        <tr><th></th><th>Tired</th><th>Burnt Out</th></tr>
+        <tr><td>Rest helps</td><td>Yes</td><td>Not really</td></tr>
+        <tr><td>You still care</td><td>Yes</td><td>Caring feels impossible</td></tr>
+        <tr><td>You can see the end</td><td>Yes</td><td>No end in sight</td></tr>
+        <tr><td>Emotions are accessible</td><td>Yes</td><td>Numb or flat</td></tr>
+        <tr><td>Weekend fixes it</td><td>Usually</td><td>Rarely</td></tr>
+    </table>
+
+    <hr>
+    <p style="text-align:center;font-size:18px;color:var(--text-muted);padding:20px 0;">· · ·</p>
+</div>
+
+<!-- End CTA -->
+<div class="preview-end">
+    <h2>This is where the free preview ends.</h2>
+    <p style="margin-bottom:24px;">The full workbook continues with:</p>
+    <ul class="continues">
+        <li>Burnout vs. Depression — how to tell the difference</li>
+        <li>What chronic stress actually does to your brain</li>
+        <li>Your Burnout Timeline — mapping how you got here</li>
+        <li>The 90-Day Recovery Plan with daily exercises</li>
+        <li>Boundary scripts, energy audits &amp; career rebuilding</li>
+        <li>15 chapters of science-backed recovery work</li>
+    </ul>
+    <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="font-size:18px;padding:16px 40px;margin-top:16px;">Get the Full Workbook on Amazon →</a>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Shop</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+</body>
+</html>
