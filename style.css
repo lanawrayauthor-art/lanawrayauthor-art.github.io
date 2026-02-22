@@ -96,7 +96,7 @@ a:hover { opacity: 0.8; }
     cursor: pointer;
 }
 .btn-primary {
-    background: var(--accent); color: #fff;
+    background: var(--accent); color: #fff !important;
 }
 .btn-primary:hover { background: #ea6c0a; opacity: 1; }
 .btn-secondary {
