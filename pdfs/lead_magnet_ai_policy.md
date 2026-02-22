@@ -22,7 +22,7 @@ This policy establishes guidelines for the responsible use of AI tools (ChatGPT,
 
 ✅ **Brainstorming development plans** — suggesting growth areas, learning resources, conversation starters
 
-✅ **Checking for bias in language** — reviewing draft text for gendered, ageist, or culturally biased phrasing
+✅ **Checking for bias in language** — reviewing draft text for gendered, ageist, or culturally biased phrasing. Note: AI bias detection is a helpful prompt, not a guarantee of legal safety. It does not replace review by HR or legal professionals.
 
 ---
 
@@ -56,11 +56,17 @@ This policy establishes guidelines for the responsible use of AI tools (ChatGPT,
 
 ## Employee Rights
 
-- Employees may request to know whether AI was used in drafting their performance review (where local law requires or company policy permits).
+- The organization will proactively inform employees about which performance management processes involve AI tools and for what purpose (transparency by default).
+- Employees may request to know whether AI was used in drafting their specific performance review (where local law requires or company policy permits).
 - AI-assisted reviews do not diminish the employee's right to appeal, discuss, or challenge their evaluation through standard company processes.
 - No employment decision (promotion, demotion, PIP, termination) shall be made solely on the basis of AI-generated content.
 
 ---
+
+## Organizational Responsibilities
+
+- **Bias audits:** Conduct regular audits of AI tools used in HR processes. Involve your DPO/Legal team in assessing risks. Consider a Data Protection Impact Assessment (DPIA) where required.
+- **Tool vetting:** Only approved, vetted AI tools should be used for performance-related work. Maintain a list of authorized tools and their data handling agreements.
 
 ## Compliance
 
@@ -71,6 +77,8 @@ This policy should be reviewed alongside your organization's:
 - AI/technology acceptable use policy
 
 **Review cadence:** At minimum annually, or whenever AI tooling or regulations change significantly.
+
+**Jurisdictional note:** In jurisdictions with specific regulations on automated decision-making (EU under GDPR Art. 22, certain US states), obtain separate legal counsel to ensure compliance with local requirements for AI in employment decisions.
 
 ---
 
