@@ -469,35 +469,38 @@ function submitEmail(e) {
     const zone = document.getElementById('formZone').value;
     const status = document.getElementById('emailStatus');
 
-    // Send via formsubmit.co (free, no registration needed)
+    // Send to MailerLite
     const formData = new FormData();
-    formData.append('email', email);
-    formData.append('score', score + '/50');
-    formData.append('zone', zone);
-    formData.append('newsletter_optin', optin ? 'Yes' : 'No');
-    formData.append('_subject', 'Burnout Test Result: ' + score + '/50 (' + zone + ')');
-    formData.append('_template', 'table');
-    formData.append('_captcha', 'false');
+    formData.append('fields[email]', email);
+    formData.append('ml-submit', '1');
+    formData.append('anticsrf', 'true');
 
-    // Send to Lana's email
-    fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com', {
+    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180133715222988016/subscribe', {
         method: 'POST',
         body: formData
     })
-    .then(r => r.json())
-    .then(data => {
+    .then(r => {
         status.style.display = 'block';
         status.style.color = 'var(--accent)';
-        status.textContent = '✓ Check your inbox! Your results are on the way.';
+        status.textContent = '✓ Subscribed! We\'ll keep you updated.';
         document.getElementById('emailForm').querySelector('button').disabled = true;
         document.getElementById('emailForm').querySelector('button').textContent = 'Sent!';
     })
     .catch(err => {
         status.style.display = 'block';
         status.style.color = '#ef4444';
-        status.textContent = 'Something went wrong. Try again or email us at lanawray.author@gmail.com';
+        status.textContent = 'Something went wrong. Try again.';
     });
 }
 </script>
+<!-- MailerLite Universal -->
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+.push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2134096');
+</script>
+<!-- End MailerLite Universal -->
 </body>
 </html>

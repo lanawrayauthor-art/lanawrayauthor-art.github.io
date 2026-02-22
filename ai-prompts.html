@@ -352,18 +352,25 @@ function sendPrompts(e){
     e.preventDefault();
     var email=document.getElementById('promptsEmail').value;
     var fd=new FormData();
-    fd.append('email',email);
-    fd.append('request','5 AI Prompts for Performance Reviews');
-    fd.append('_subject','AI Prompts Request from '+email);
-    fd.append('_template','table');
-    fd.append('_captcha','false');
-    fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com',{method:'POST',body:fd})
+    fd.append('fields[email]',email);
+    fd.append('ml-submit','1');
+    fd.append('anticsrf','true');
+    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180133715222988016/subscribe',{method:'POST',body:fd})
     .then(function(){
         var s=document.getElementById('promptsStatus');
         s.style.display='block';
-        s.textContent='✓ Check your inbox!';
+        s.textContent='✓ Subscribed! You\'ll get updates.';
     });
 }
 </script>
+<!-- MailerLite Universal -->
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+.push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2134096');
+</script>
+<!-- End MailerLite Universal -->
 </body>
 </html>
