@@ -259,6 +259,29 @@
 
             <div class="result-text" id="resultText"></div>
 
+            <!-- Email capture -->
+            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin: 32px 0; text-align: left;">
+                <h3 style="font-size: 18px; margin-bottom: 8px; text-align: center;">📩 Get Your Results by Email</h3>
+                <p style="color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 20px;">We'll send your score, personalized interpretation, and actionable next steps.</p>
+                <form id="emailForm" onsubmit="submitEmail(event)">
+                    <input type="hidden" id="formScore" name="score" value="">
+                    <input type="hidden" id="formZone" name="zone" value="">
+                    <div style="margin-bottom: 16px;">
+                        <input type="email" id="emailInput" name="email" placeholder="Your email address" required
+                            style="width: 100%; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 16px; font-family: inherit; outline: none;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                            <input type="checkbox" id="optinCheck" name="optin" value="yes" checked
+                                style="margin-top: 3px; accent-color: var(--accent); min-width: 16px;">
+                            I'd also like to receive practical burnout recovery tips and new product announcements from Lana Wray. Unsubscribe anytime.
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn" style="width: 100%; padding: 14px;">Send My Results</button>
+                    <p id="emailStatus" style="text-align: center; margin-top: 12px; font-size: 13px; color: var(--accent); display: none;"></p>
+                </form>
+            </div>
+
             <div class="result-cta">
                 <p id="resultCta"></p>
                 <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="display:inline-block;">Get "Wired to Burn Out" on Amazon</a>
@@ -434,8 +457,48 @@ You didn't get here overnight, and you won't recover overnight. But recovery IS 
     document.getElementById('resultRange').textContent = range;
     document.getElementById('resultText').innerHTML = text.replace(/\n\n/g, '<br><br>');
     document.getElementById('resultCta').textContent = cta;
+    document.getElementById('formScore').value = total;
+    document.getElementById('formZone').value = title;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitEmail(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const optin = document.getElementById('optinCheck').checked;
+    const score = document.getElementById('formScore').value;
+    const zone = document.getElementById('formZone').value;
+    const status = document.getElementById('emailStatus');
+
+    // Send via formsubmit.co (free, no registration needed)
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('score', score + '/50');
+    formData.append('zone', zone);
+    formData.append('newsletter_optin', optin ? 'Yes' : 'No');
+    formData.append('_subject', 'Burnout Test Result: ' + score + '/50 (' + zone + ')');
+    formData.append('_template', 'table');
+    formData.append('_captcha', 'false');
+
+    // Send to Lana's email
+    fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        status.style.display = 'block';
+        status.style.color = 'var(--accent)';
+        status.textContent = '✓ Check your inbox! Your results are on the way.';
+        document.getElementById('emailForm').querySelector('button').disabled = true;
+        document.getElementById('emailForm').querySelector('button').textContent = 'Sent!';
+    })
+    .catch(err => {
+        status.style.display = 'block';
+        status.style.color = '#ef4444';
+        status.textContent = 'Something went wrong. Try again or email us at lanawray.author@gmail.com';
+    });
 }
 </script>
 </body>
