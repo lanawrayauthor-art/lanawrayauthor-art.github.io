@@ -338,7 +338,7 @@ const questions = [
     }
 ];
 
-const labels = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+const labels = ["Never", "Rarely", "Sometimes", "Often", "Almost Always"];
 const answers = new Array(10).fill(0);
 
 const container = document.getElementById('questions');
@@ -351,7 +351,7 @@ questions.forEach((item, i) => {
         <h3>${item.q}</h3>
         <div class="q-note">${item.note}</div>
         <div class="rating-buttons">
-            ${[1,2,3,4,5].map(v => `<button class="rating-btn" onclick="selectAnswer(${i}, ${v}, this)">${v}</button>`).join('')}
+            ${[1,2,3,4,5].map(v => `<button class="rating-btn" onclick="selectAnswer(${i}, ${v}, this)"><span style="font-size:18px;display:block;">${v}</span><span style="font-size:11px;color:inherit;opacity:0.8;">${labels[v-1]}</span></button>`).join('')}
         </div>
         <div class="rating-labels">
             <span>Never</span>
