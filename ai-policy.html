@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Performance Reviews: Policy Template — Lana Wray</title>
+    <meta name="description" content="Free internal policy template for responsible AI use in performance reviews. Ready to adapt for HR teams and people managers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article { max-width: 720px; margin: 0 auto; }
+        .article h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin: 48px 0 16px; color: var(--text); }
+        .article h3 { font-size: 18px; margin: 32px 0 12px; color: var(--accent); }
+        .article p { color: var(--text-muted); line-height: 1.8; margin-bottom: 12px; }
+        .article strong { color: var(--text); }
+        .article hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+        .article ul, .article ol { margin: 12px 0 12px 24px; }
+        .article li { color: var(--text-muted); line-height: 1.8; margin-bottom: 6px; }
+        .policy-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 20px 0;
+        }
+        .policy-box h4 { color: var(--text); font-size: 16px; margin-bottom: 12px; }
+        .policy-box p, .policy-box li { font-size: 14px; }
+        .email-footer {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 60px 0 20px;
+            text-align: center;
+        }
+        .email-footer h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; color: var(--text); }
+        .email-footer p { color: var(--text-muted); margin-bottom: 20px; }
+        .email-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; max-width: 460px; margin: 0 auto; }
+        .email-form input[type="email"] {
+            flex: 1; min-width: 220px; padding: 14px 16px; border-radius: 8px;
+            border: 1px solid var(--border); background: var(--bg);
+            color: var(--text); font-size: 15px; font-family: inherit;
+        }
+        .email-form input[type="email"]::placeholder { color: var(--text-muted); }
+        .email-form button {
+            padding: 14px 28px; border-radius: 8px; border: none;
+            background: var(--accent); color: #fff !important; font-size: 15px;
+            font-weight: 600; cursor: pointer; font-family: inherit;
+            transition: background 0.2s;
+        }
+        .email-form button:hover { background: #ea6c0a; }
+        .success-msg { color: var(--accent); font-weight: 600; display: none; margin-top: 12px; }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">LW</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Shop</a>
+            <a href="free.html" class="active">Free Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<section class="section" style="padding-top: 140px;">
+    <div class="container">
+        <div class="article">
+
+            <p class="overline" style="text-align:left;">Free Template</p>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 8px;">AI in Performance Reviews: Internal Policy Template</h1>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">A ready-to-adapt 1-page policy for HR teams and people managers · By Lana Wray</p>
+
+            <hr>
+
+            <h2>Purpose</h2>
+            <p>This policy establishes guidelines for the responsible use of AI tools (ChatGPT, Claude, Gemini, Copilot, etc.) in performance review processes. It applies to all managers, HR professionals, and employees who use AI to draft, edit, or structure performance-related documents.</p>
+
+            <hr>
+
+            <h2>What AI CAN Be Used For</h2>
+
+            <div class="policy-box">
+                <p>✅ <strong>Drafting and structuring</strong> review text, self-assessments, and peer feedback — as a starting point for human editing</p>
+                <p>✅ <strong>Improving clarity and tone</strong> of already-written feedback — grammar, structure, conciseness</p>
+                <p>✅ <strong>Generating goal frameworks</strong> — turning vague objectives into measurable OKRs</p>
+                <p>✅ <strong>Brainstorming development plans</strong> — suggesting growth areas, learning resources, conversation starters</p>
+                <p>✅ <strong>Checking for bias in language</strong> — reviewing draft text for gendered, ageist, or culturally biased phrasing. <em>Note: AI bias detection is a helpful prompt, not a guarantee of legal safety.</em></p>
+            </div>
+
+            <h2>What AI MUST NOT Be Used For</h2>
+
+            <div class="policy-box" style="border-color: #ff4444;">
+                <p>🚫 <strong>Making performance decisions</strong> — AI does not determine ratings, rankings, compensation, PIPs, or termination decisions. All evaluations must reflect human judgment based on documented evidence.</p>
+                <p>🚫 <strong>Generating fabricated evidence</strong> — Do not ask AI to create fictional metrics, invent accomplishments, or produce quotes that were never said.</p>
+                <p>🚫 <strong>Processing sensitive personal data</strong> — Do not input employee names, salaries, health information, or other PII into public AI tools unless your organization has an enterprise agreement with data protections.</p>
+                <p>🚫 <strong>Replacing direct observation</strong> — AI cannot observe behavior, understand context, or feel empathy. Reviews must be grounded in the manager's own observations.</p>
+                <p>🚫 <strong>Submitting unedited AI output</strong> — All AI-generated text must be reviewed, edited, and personalized before inclusion in any official document.</p>
+            </div>
+
+            <hr>
+
+            <h2>Manager Responsibilities</h2>
+            <ol>
+                <li><strong>Gather evidence first, write second.</strong> Before using AI, compile your notes, data, and observations. AI shapes the delivery; the substance must come from you.</li>
+                <li><strong>Review all output for bias.</strong> Check AI-generated text for language that could disadvantage any group based on gender, age, ethnicity, disability, or other protected characteristics.</li>
+                <li><strong>Disclose when required.</strong> If your organization or local regulations require disclosure of AI use in employment decisions, comply fully. When in doubt, consult HR.</li>
+                <li><strong>Keep records appropriately.</strong> Be aware that AI prompts and outputs may be discoverable in legal proceedings.</li>
+                <li><strong>Maintain confidentiality.</strong> Treat AI-assisted documents with the same confidentiality as any other performance record.</li>
+            </ol>
+
+            <hr>
+
+            <h2>Employee Rights</h2>
+            <ul>
+                <li>The organization will proactively inform employees about which performance management processes involve AI tools and for what purpose.</li>
+                <li>Employees may request to know whether AI was used in drafting their specific performance review.</li>
+                <li>AI-assisted reviews do not diminish the employee's right to appeal, discuss, or challenge their evaluation.</li>
+                <li>No employment decision shall be made solely on the basis of AI-generated content.</li>
+            </ul>
+
+            <hr>
+
+            <h2>Organizational Responsibilities</h2>
+            <ul>
+                <li><strong>Bias audits:</strong> Conduct regular audits of AI tools used in HR processes. Involve your DPO/Legal team in assessing risks.</li>
+                <li><strong>Tool vetting:</strong> Only approved, vetted AI tools should be used for performance-related work. Maintain a list of authorized tools.</li>
+            </ul>
+
+            <h2>Compliance</h2>
+            <p>This policy should be reviewed alongside your organization's:</p>
+            <ul>
+                <li>Data privacy policy (GDPR, CCPA, local equivalents)</li>
+                <li>Employee data handling procedures</li>
+                <li>Existing performance management guidelines</li>
+                <li>AI/technology acceptable use policy</li>
+            </ul>
+            <p><strong>Review cadence:</strong> At minimum annually, or whenever AI tooling or regulations change significantly.</p>
+            <p><em><strong>Jurisdictional note:</strong> In jurisdictions with specific regulations on automated decision-making (EU under GDPR Art. 22, certain US states), obtain separate legal counsel to ensure compliance.</em></p>
+
+            <hr>
+
+            <p style="font-size: 13px; color: var(--text-muted); font-style: italic;">This template is provided as a starting point. Adapt it to your organization's size, jurisdiction, and existing policies. It does not constitute legal advice. © 2026 Lana Wray. Free to use and adapt with attribution.</p>
+
+            <!-- Email Capture -->
+            <div class="email-footer">
+                <h3>📩 Get This Template as PDF</h3>
+                <p>Enter your email and I'll send you a clean, ready-to-use PDF version you can share with your team.</p>
+                <form class="email-form" id="policyForm">
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                    <input type="hidden" name="_subject" value="AI Policy Template PDF Request">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <button type="submit">Send Me the PDF</button>
+                </form>
+                <p class="success-msg" id="successMsg">✅ Got it! Check your inbox.</p>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin: 40px 0;">
+                <p style="color: var(--text-muted); margin-bottom: 16px;">Want more practical HR tools?</p>
+                <a href="books.html" class="btn btn-primary" style="display:inline-block;">Browse All Products →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo">LW</span>
+                <p>Lana Wray — Neuroscience-based burnout recovery</p>
+            </div>
+            <div class="footer-links">
+                <a href="books.html">Shop</a>
+                <a href="free.html">Free Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Lana Wray. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}
+
+document.getElementById('policyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = this;
+    var data = new FormData(form);
+    fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com', {
+        method: 'POST',
+        body: data
+    }).then(function(r){ return r.json(); })
+    .then(function(data){
+        form.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+    }).catch(function(){
+        form.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+    });
+});
+</script>
+</body>
+</html>
