@@ -74,10 +74,35 @@
 
         </div>
 
-        <div class="center" style="margin-top: 60px;">
-            <p style="color: var(--text-muted); margin-bottom: 16px;">Want to be notified when these drop?</p>
-            <a href="mailto:lanawray.author@gmail.com?subject=Notify me about free resources" class="btn btn-primary">Get Notified</a>
+        <div style="max-width:480px;margin:60px auto 0;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:32px;">
+            <p style="color:var(--text);font-weight:600;font-size:18px;margin-bottom:8px;">Want to be notified when these drop?</p>
+            <p style="color:var(--text-muted);margin-bottom:20px;font-size:14px;">Leave your email — no spam, only new resource announcements.</p>
+            <form id="notifyForm" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+                <input type="email" name="email" placeholder="your@email.com" required style="flex:1;min-width:200px;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;font-family:inherit;">
+                <input type="hidden" name="_subject" value="Notify me about new free resources">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <button type="submit" class="btn btn-primary" style="padding:12px 24px;">Notify Me</button>
+            </form>
+            <p id="notifySuccess" style="color:var(--accent);font-weight:600;margin-top:12px;display:none;">✅ Got it! We'll let you know.</p>
         </div>
+
+        <script>
+        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            fetch('https://formsubmit.co/ajax/lanawray.author@gmail.com', {
+                method: 'POST',
+                body: new FormData(form)
+            }).then(function(){ 
+                form.style.display = 'none';
+                document.getElementById('notifySuccess').style.display = 'block';
+            }).catch(function(){
+                form.style.display = 'none';
+                document.getElementById('notifySuccess').style.display = 'block';
+            });
+        });
+        </script>
     </div>
 </section>
 
