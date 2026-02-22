@@ -217,7 +217,10 @@ a:hover { opacity: 0.8; }
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 40px; text-align: center;
     max-width: 600px; margin: 0 auto;
+    display: flex; flex-direction: column;
 }
+.resource-card p { flex: 1; }
+.resource-card .btn { margin-top: auto; }
 .resource-card h3 { font-size: 24px; margin-bottom: 12px; }
 .resource-card p { color: var(--text-muted); margin-bottom: 24px; }
 
