@@ -259,33 +259,29 @@
 
             <div class="result-text" id="resultText"></div>
 
-            <!-- Email capture -->
-            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin: 32px 0; text-align: left;">
-                <h3 style="font-size: 18px; margin-bottom: 8px; text-align: center;">📩 Get Your Results by Email</h3>
-                <p style="color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 20px;">We'll send your score, personalized interpretation, and actionable next steps.</p>
-                <form id="emailForm" onsubmit="submitEmail(event)">
-                    <input type="hidden" id="formScore" name="score" value="">
-                    <input type="hidden" id="formZone" name="zone" value="">
-                    <div style="margin-bottom: 16px;">
-                        <input type="email" id="emailInput" name="email" placeholder="Your email address" required
-                            style="width: 100%; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 16px; font-family: inherit; outline: none;">
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
-                            <input type="checkbox" id="optinCheck" name="optin" value="yes" checked
-                                style="margin-top: 3px; accent-color: var(--accent); min-width: 16px;">
-                            I'd also like to receive practical burnout recovery tips and new product announcements from Lana Wray. Unsubscribe anytime.
-                        </label>
-                    </div>
-                    <button type="submit" class="submit-btn" style="width: 100%; padding: 14px;">Send My Results</button>
-                    <p id="emailStatus" style="text-align: center; margin-top: 12px; font-size: 13px; color: var(--accent); display: none;"></p>
-                </form>
-            </div>
-
             <div class="result-cta">
                 <p id="resultCta"></p>
                 <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="display:inline-block;">Get "Wired to Burn Out" on Amazon</a>
                 <p style="margin-top: 16px;"><a href="books.html">Browse all tools →</a></p>
+            </div>
+
+            <!-- Subtle email capture -->
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+                <form id="emailForm" onsubmit="submitEmail(event)" style="max-width: 400px; margin: 0 auto;">
+                    <input type="hidden" id="formScore" name="score" value="">
+                    <input type="hidden" id="formZone" name="zone" value="">
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 10px;">Want a copy of your results + burnout recovery tips?</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="email" id="emailInput" name="email" placeholder="your@email.com" required
+                            style="flex: 1; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 14px; font-family: inherit; outline: none;">
+                        <button type="submit" style="padding: 10px 16px; background: var(--border); color: var(--text-muted); border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap;">Send</button>
+                    </div>
+                    <label style="display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; color: #555; cursor: pointer;">
+                        <input type="checkbox" id="optinCheck" name="optin" value="yes" checked style="accent-color: var(--accent);">
+                        Also send me new tools & articles. Unsubscribe anytime.
+                    </label>
+                    <p id="emailStatus" style="margin-top: 8px; font-size: 12px; color: var(--accent); display: none;"></p>
+                </form>
             </div>
 
             <div class="other-tests">
