@@ -27,6 +27,9 @@
             margin: 16px 0;
             overflow-x: auto;
         }
+        .code-block {
+            position: relative;
+        }
         .code-block pre {
             color: var(--text-muted);
             font-family: 'Courier New', monospace;
@@ -35,6 +38,21 @@
             white-space: pre-wrap;
             margin: 0;
         }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--border);
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: var(--accent); color: #fff; }
         .email-footer {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -308,6 +326,27 @@ a calibration committee's decision easy.</pre></div>
 
 <script>
 function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}
+
+// Add copy buttons to all code blocks
+document.querySelectorAll('.code-block').forEach(function(block) {
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = '📋 Copy';
+    btn.onclick = function() {
+        var text = block.querySelector('pre').textContent;
+        navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = '✓ Copied!';
+            btn.style.background = '#22c55e';
+            btn.style.color = '#fff';
+            setTimeout(function() {
+                btn.textContent = '📋 Copy';
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 2000);
+        });
+    };
+    block.appendChild(btn);
+});
 function sendPrompts(e){
     e.preventDefault();
     var email=document.getElementById('promptsEmail').value;
