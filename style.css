@@ -198,6 +198,12 @@ a:hover { opacity: 0.8; }
     font-family: 'Playfair Display', serif;
     font-size: 64px; font-weight: 700; color: var(--accent);
 }
+.author-photo {
+    width: 220px; height: 220px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    border: 2px solid var(--accent);
+    margin: 0 auto; display: block;
+}
 .about-text h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 20px; }
 .about-text p { color: var(--text-muted); margin-bottom: 16px; font-size: 16px; line-height: 1.8; }
 
