@@ -193,6 +193,20 @@
     </div>
 </nav>
 
+<!-- Email Gate -->
+<div id="email-gate" style="max-width:480px;margin:160px auto 60px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:40px 32px;">
+    <div style="font-size:48px;margin-bottom:16px;">📖</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:8px;">Read the Free Preview</h2>
+    <p style="color:var(--text-muted);margin-bottom:24px;font-size:15px;">Enter your email to unlock Chapter 1 &amp; 2 of <em>Wired to Burn Out</em>.</p>
+    <form id="gateForm" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <input type="email" id="gateEmail" placeholder="your@email.com" required style="flex:1;min-width:200px;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;font-family:inherit;">
+        <button type="submit" class="btn btn-primary" style="padding:12px 24px;">Unlock Preview</button>
+    </form>
+    <p id="gateError" style="color:#ef4444;font-size:13px;margin-top:8px;display:none;">Something went wrong. Please try again.</p>
+</div>
+
+<div id="book-content" style="display:none;">
+
 <!-- Hero -->
 <div class="preview-hero">
     <img src="cover.png" alt="Wired to Burn Out">
@@ -367,6 +381,29 @@
     </ul>
     <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" class="btn btn-primary" style="font-size:18px;padding:16px 40px;margin-top:16px;">Get the Full Workbook on Amazon →</a>
 </div>
+
+</div><!-- end #book-content -->
+
+<script>
+document.getElementById('gateForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('gateEmail').value;
+    var fd = new FormData();
+    fd.append('fields[email]', email);
+    fd.append('ml-submit', '1');
+    fd.append('anticsrf', 'true');
+    fetch('https://assets.mailerlite.com/jsonp/2134096/forms/180134149231740712/subscribe', {
+        method: 'POST',
+        body: fd
+    }).then(function() {
+        document.getElementById('email-gate').style.display = 'none';
+        document.getElementById('book-content').style.display = 'block';
+    }).catch(function() {
+        document.getElementById('email-gate').style.display = 'none';
+        document.getElementById('book-content').style.display = 'block';
+    });
+});
+</script>
 
 <footer class="footer">
     <div class="container">
