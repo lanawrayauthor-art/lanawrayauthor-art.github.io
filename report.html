@@ -779,6 +779,7 @@ function generatePDF(data) {
   y += 90;
 
   // Team
+  if (y > H - 160) { doc.addPage(); bg(); header(12); y = 55; }
   doc.setFillColor(...DARK_CARD);
   doc.roundedRect(M, y, CW, 90, 8, 8, 'F');
   doc.setFontSize(13);
@@ -796,7 +797,7 @@ function generatePDF(data) {
   y += 110;
 
   // Footer message
-  y += 20;
+  if (y > H - 120) { doc.addPage(); bg(); header(''); y = 55; }
   doc.setFontSize(11);
   doc.setTextColor(...MUTED);
   const closing = wrapText("Recovery is not about doing more. It's about giving your nervous system the specific inputs it needs to restore its natural capacity. The interventions in this report are designed to be minimal and targeted - the smallest changes that produce the largest neurological shifts. Start with Week 1. One dimension at a time. Your brain will do the rest.", CW, 11);
