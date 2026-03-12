@@ -501,6 +501,35 @@ h1 .highlight {
   font-size: 0.95rem;
   line-height: 1.5;
 }
+.quick-fix {
+  background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.03));
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+.quick-fix-header {
+  font-size: 16px;
+  font-weight: 700;
+  color: #F97316;
+  margin-bottom: 12px;
+}
+.quick-fix-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #CBD5E1;
+  margin-bottom: 16px;
+}
+.quick-fix-text strong {
+  color: #F97316;
+}
+.quick-fix-tease {
+  font-size: 13px;
+  color: #64748B;
+  font-style: italic;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
 .highest-risk-text strong {
   color: var(--orange);
 }
@@ -1193,6 +1222,18 @@ function getDimensionExplanation(key, pct) {
   return explanations[key]?.[risk.level] || '';
 }
 
+function getQuickFix(key) {
+  const fixes = {
+    'R': "<strong>The Hard Shutdown Ritual:</strong> Pick a time today. At that time, close your laptop, write tomorrow's three priorities on paper, and walk outside for 10 minutes. No phone. Do this every day this week. Your cortisol curve needs a predictable endpoint — this gives it one.",
+    'E': "<strong>Turn Off Self-View:</strong> On your next video call, hide your own video thumbnail. Research shows self-view forces continuous self-monitoring that drains your social processing circuits. One click. Immediate relief. Do it on every call this week.",
+    'M': "<strong>The Visibility Audit:</strong> For one day, notice every action you take to appear busy vs. actually be productive. Green status? Quick email to show presence? Opening your laptop at a meeting you don't need to attend? Just notice. Awareness is the first step to reclaiming your prefrontal cortex from performance mode.",
+    'O': "<strong>One Embodied Interaction:</strong> This week, replace one video call with an in-person coffee, walk, or phone call while walking outside. Your social brain needs embodied presence — voice + movement is closer to what your nervous system was designed for than face-on-screen.",
+    'T': "<strong>Notification Surgery:</strong> Right now — before you close this page — go into Slack/Teams settings and turn off all sound and badge notifications. Keep only direct messages. You will still check it. But a chosen check costs your prefrontal cortex dramatically less than an interrupt-driven one.",
+    'E2': "<strong>The Scent Anchor:</strong> Buy any distinctive scent — a candle, essential oil, even a specific hand cream. Use it ONLY during work hours. Within a week, your limbic system will begin using it as a context cue. When it's absent, your brain gets the signal: this is not work time. It sounds simple because it is. It works because of neuroanatomy."
+  };
+  return fixes[key] || fixes['R'];
+}
+
 function buildRadarChart(scores) {
   const size = 380;
   const cx = size / 2, cy = size / 2;
@@ -1316,6 +1357,12 @@ function showResults() {
       </div>
     </div>
 
+    <div class="quick-fix animate-in" style="animation-delay: 0.25s">
+      <div class="quick-fix-header">🧪 One thing you can do this week</div>
+      <div class="quick-fix-text">${getQuickFix(highestKey)}</div>
+      <div class="quick-fix-tease">Your full report includes step-by-step recovery protocols for all 6 dimensions — what to change this week, this month, and long-term.</div>
+    </div>
+
     <div class="radar-card animate-in" style="animation-delay: 0.3s">
       <h3>Your REMOTE Stress Profile</h3>
       <div class="radar-svg-container">
@@ -1375,7 +1422,9 @@ function showResults() {
         <ul class="upsell-features">
           <li>Personalized 15-page PDF report with your complete REMOTE profile</li>
           <li>Neuroscience explanations for each of your six stress dimensions</li>
-          <li>Targeted interventions designed for your specific risk pattern</li>
+          <li>Practical step-by-step recovery protocols for each dimension — what to do this week, this month, and long-term</li>
+          <li>Targeted interventions matched to YOUR specific risk pattern — not generic advice</li>
+          <li>Evidence-based daily routines: morning anchors, notification redesign, spatial context fixes, and stress cycle completion rituals</li>
           <li>How you compare with 5,000+ remote workers who've taken this assessment</li>
           <li>Concrete 30-day action plan to reduce your highest-risk dimensions</li>
         </ul>
