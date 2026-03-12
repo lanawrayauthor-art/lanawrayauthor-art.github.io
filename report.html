@@ -122,7 +122,7 @@
 </div>
 
 <script>
-const { jsPDF } = window.jspdf;
+let jsPDF;
 
 // ─── Risk Level Helper ───
 function getRiskLevel(score) {
@@ -820,7 +820,15 @@ function downloadAgain() {
 }
 
 // ─── Main ───
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
+  if (window.jspdf) {
+    jsPDF = window.jspdf.jsPDF;
+  } else {
+    document.getElementById('noData').classList.remove('hidden');
+    document.querySelector('#noData h1').textContent = 'Loading Error';
+    document.querySelector('#noData p').textContent = 'Could not load PDF library. Please refresh the page.';
+    return;
+  }
   const raw = localStorage.getItem('remoteAssessment');
   if (!raw) {
     document.getElementById('noData').classList.remove('hidden');
@@ -872,7 +880,7 @@ window.addEventListener('DOMContentLoaded', () => {
       console.error(err);
     }
   }, 1800);
-});
+}); // end load
 </script>
 </body>
 </html>
