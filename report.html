@@ -148,10 +148,16 @@ const DIMENSIONS = [
 
 // Map dimension keys from assessment to our array
 function mapScores(scores) {
-  // The assessment stores: R, E, M, O, T, E2 (or similar)
-  // Try multiple key formats
+  // The assessment stores scores as objects: { R: {raw, pct, name, ...}, E: {...}, ... }
+  // Or as simple numbers: { R: 75, E: 60, ... }
   return DIMENSIONS.map(d => {
-    const val = scores[d.key] ?? scores[d.name] ?? scores[d.full] ?? 0;
+    let entry = scores[d.key] ?? scores[d.name] ?? scores[d.full];
+    let val = 0;
+    if (entry && typeof entry === 'object') {
+      val = entry.pct ?? entry.score ?? entry.raw ?? 0;
+    } else if (typeof entry === 'number') {
+      val = entry;
+    }
     return { ...d, score: Math.round(val), risk: getRiskLevel(Math.round(val)) };
   });
 }
