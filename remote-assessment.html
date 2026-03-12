@@ -1104,13 +1104,17 @@ function selectAnswer(value) {
   document.querySelectorAll('.likert-option').forEach(el => {
     el.classList.toggle('selected', parseInt(el.dataset.value) === value);
   });
-  document.getElementById('nextBtn').disabled = false;
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = false;
   // Auto-advance after brief delay
   setTimeout(() => {
     if (currentQ < 29) {
       nextQuestion();
+    } else if (currentQ === 29) {
+      // Last question — auto-show results
+      showResults();
     }
-  }, 300);
+  }, 400);
 }
 
 function nextQuestion() {
