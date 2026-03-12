@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REMOTE Burnout Assessment™ | Free Neuroscience-Based Burnout Test for Remote Workers</title>
+<meta name="description" content="Take the free REMOTE Burnout Assessment™ — the first neuroscience-based burnout risk test designed specifically for remote workers. 30 questions, 5 minutes, based on peer-reviewed research from Yale, MIT, UC Irvine & Princeton.">
+<meta name="keywords" content="burnout test, remote work burnout, burnout assessment, work from home burnout, remote worker stress, neuroscience burnout, burnout quiz, WFH burnout">
+<meta name="author" content="Lana Wray">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lana-wray.com/remote-assessment.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="REMOTE Burnout Assessment™ | Free Neuroscience-Based Burnout Test">
+<meta property="og:description" content="The first neuroscience-based burnout risk assessment designed specifically for remote workers. 30 questions. 5 minutes. Based on peer-reviewed research.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lana-wray.com/remote-assessment.html">
+<meta property="og:site_name" content="Lana Wray">
+<meta property="og:image" content="https://lana-wray.com/images/remote-assessment-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="REMOTE Burnout Assessment™ | Free Burnout Test for Remote Workers">
+<meta name="twitter:description" content="The first neuroscience-based burnout risk assessment for remote workers. Find out your risk across 6 neurobiological stress dimensions.">
+<meta name="twitter:image" content="https://lana-wray.com/images/remote-assessment-og.png">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "name": "REMOTE Burnout Assessment™",
+  "description": "The first neuroscience-based burnout risk assessment designed specifically for remote workers. Measures 6 neurobiological stress dimensions: Role Blur, Empathy Depletion, Micro-Surveillance, Osmotic Loneliness, Techno-Overload, and Escapelessness.",
+  "educationalLevel": "general",
+  "about": {
+    "@type": "MedicalCondition",
+    "name": "Occupational Burnout"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Lana Wray",
+    "url": "https://lana-wray.com"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Lana Wray",
+    "url": "https://lana-wray.com"
+  },
+  "numberOfQuestions": 30,
+  "timeRequired": "PT5M"
+}
+</script>
+
+<!-- Google Analytics placeholder -->
+<!-- TODO: Add Google Analytics tracking code
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0F172A;
+  --card: #1E293B;
+  --card-hover: #263348;
+  --orange: #F97316;
+  --orange-dim: rgba(249, 115, 22, 0.15);
+  --orange-glow: rgba(249, 115, 22, 0.3);
+  --text: #E2E8F0;
+  --text-dim: #94A3B8;
+  --text-muted: #64748B;
+  --green: #22C55E;
+  --yellow: #EAB308;
+  --red: #EF4444;
+  --radius: 12px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility */
+.container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+.hidden { display: none !important; }
+
+/* Sections */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.section.fade-out { opacity: 0; }
+
+/* ===== LANDING ===== */
+#landing .container { text-align: center; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-dim);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 50px;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge svg { width: 16px; height: 16px; }
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+h1 .highlight {
+  background: linear-gradient(135deg, var(--orange), #FB923C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 16px auto 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 48px 0;
+  flex-wrap: wrap;
+}
+.stat {
+  text-align: center;
+}
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--orange), #EA580C);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 18px 48px;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 24px rgba(249, 115, 22, 0.3);
+  letter-spacing: 0.3px;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.45);
+}
+.cta-btn:active { transform: translateY(0); }
+.cta-btn svg { width: 20px; height: 20px; }
+
+.credibility {
+  margin-top: 48px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+.credibility strong { color: var(--text-dim); font-weight: 500; }
+
+/* ===== ASSESSMENT ===== */
+#assessment { min-height: 100vh; }
+
+.progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.progress-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.progress-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.progress-count {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), #FB923C);
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
+.question-area {
+  padding-top: 100px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.dimension-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+.dimension-label.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dimension-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.question-text {
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.question-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.likert-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+}
+.likert-scale.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.likert-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--card);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.likert-option:hover {
+  background: var(--card-hover);
+  border-color: rgba(249, 115, 22, 0.2);
+}
+.likert-option.selected {
+  border-color: var(--orange);
+  background: var(--orange-dim);
+}
+.likert-option:active { transform: scale(0.98); }
+
+.likert-radio {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.likert-option.selected .likert-radio {
+  border-color: var(--orange);
+}
+.likert-option.selected .likert-radio::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: radioFill 0.2s ease;
+}
+@keyframes radioFill {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.likert-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.likert-value {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  font-weight: 400;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+.nav-row.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 60px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+.nav-btn.back {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.nav-btn.back:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.nav-btn.next {
+  background: linear-gradient(135deg, var(--orange), #EA580C);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
+}
+.nav-btn.next:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
+}
+.nav-btn.next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.nav-btn svg { width: 16px; height: 16px; }
+
+/* ===== RESULTS ===== */
+#results {
+  min-height: auto;
+  padding: 80px 0;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.results-header h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.results-header p {
+  color: var(--text-dim);
+  font-size: 1rem;
+}
+
+.score-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.score-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.score-value {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.score-risk {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.highest-risk {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(239, 68, 68, 0.1));
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.highest-risk-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.highest-risk-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.highest-risk-text strong {
+  color: var(--orange);
+}
+
+/* Radar Chart */
+.radar-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 40px 24px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.radar-card h3 {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: var(--text-dim);
+}
+.radar-svg-container {
+  display: flex;
+  justify-content: center;
+}
+.radar-svg-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Dimension Breakdown */
+.dimensions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.dim-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: border-color var(--transition);
+}
+.dim-card:hover { border-color: rgba(249, 115, 22, 0.15); }
+.dim-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.dim-name {
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dim-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--orange-dim);
+  color: var(--orange);
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.dim-score {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.dim-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.dim-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+.dim-desc {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* Share & Email */
+.share-section {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.share-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-dim);
+}
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 60px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+.share-btn:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+}
+.share-btn svg { width: 18px; height: 18px; }
+
+.email-capture {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 48px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.email-capture h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.email-capture p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.email-form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.email-input {
+  flex: 1;
+  min-width: 240px;
+  padding: 14px 20px;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-radius: 60px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.email-input::placeholder { color: var(--text-muted); }
+.email-input:focus { border-color: var(--orange); }
+.email-submit {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--orange), #EA580C);
+  color: #fff;
+  border: none;
+  border-radius: 60px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+.email-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+}
+.email-success {
+  color: var(--green);
+  font-weight: 600;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+/* Upsell */
+.upsell-section {
+  margin-bottom: 48px;
+}
+.upsell-card {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(234, 88, 12, 0.05));
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.upsell-card h3 {
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.upsell-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--orange);
+  margin: 16px 0;
+}
+.upsell-features {
+  list-style: none;
+  max-width: 460px;
+  margin: 24px auto;
+  text-align: left;
+}
+.upsell-features li {
+  padding: 8px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.upsell-features li::before {
+  content: '✓';
+  color: var(--orange);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.upsell-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--orange), #EA580C);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 18px 48px;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(249, 115, 22, 0.3);
+  margin-top: 8px;
+}
+.upsell-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.45);
+}
+
+.team-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.team-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.team-card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.team-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+.team-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  border: 2px solid var(--orange);
+  border-radius: 60px;
+  color: var(--orange);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  background: transparent;
+}
+.team-btn:hover {
+  background: var(--orange-dim);
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--orange); }
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .section { padding: 40px 0; }
+  .stats-row { gap: 24px; }
+  .score-card { padding: 32px 24px; }
+  .score-value { font-size: 3.5rem; }
+  .upsell-card { padding: 32px 24px; }
+  .email-form { flex-direction: column; align-items: stretch; }
+  .email-input { min-width: auto; }
+  .highest-risk { flex-direction: column; text-align: center; }
+  .likert-option { padding: 14px 18px; }
+  .nav-row { gap: 12px; }
+  .nav-btn { padding: 12px 20px; font-size: 0.88rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LANDING ===== -->
+<section id="landing" class="section">
+  <div class="container">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      Neuroscience-Based Assessment
+    </div>
+    <h1>
+      <span class="highlight">REMOTE</span> Burnout<br>Assessment™
+    </h1>
+    <p class="subtitle">The first neuroscience-based burnout risk assessment designed specifically for remote workers. Discover which of six neurobiological stress dimensions are quietly burning you out.</p>
+    
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-number">30</div>
+        <div class="stat-label">Questions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">5 min</div>
+        <div class="stat-label">To Complete</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Stress Dimensions</div>
+      </div>
+    </div>
+
+    <button class="cta-btn" onclick="startAssessment()">
+      Start Assessment
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <p class="credibility">Based on peer-reviewed research from <strong>Yale</strong>, <strong>UC Irvine</strong>, <strong>MIT</strong>, and <strong>Princeton</strong></p>
+  </div>
+</section>
+
+<!-- ===== ASSESSMENT ===== -->
+<section id="assessment" class="section hidden">
+  <div class="progress-container">
+    <div class="progress-inner">
+      <div class="progress-top">
+        <span class="progress-label" id="progressDimension"></span>
+        <span class="progress-count" id="progressCount"></span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-area">
+    <div class="dimension-label" id="dimLabel">
+      <span class="dimension-dot"></span>
+      <span id="dimLabelText"></span>
+    </div>
+    <div class="question-text" id="questionText"></div>
+    <div class="likert-scale" id="likertScale"></div>
+    <div class="nav-row" id="navRow">
+      <button class="nav-btn back" id="backBtn" onclick="prevQuestion()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <button class="nav-btn next" id="nextBtn" onclick="nextQuestion()" disabled>
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section id="results" class="section hidden">
+  <div class="container" id="resultsContent"></div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer hidden" id="siteFooter">
+  <div class="footer-links">
+    <a href="https://lana-wray.com">lana-wray.com</a>
+    <a href="https://amazon.com/dp/B0GPF3NLQ4" target="_blank" rel="noopener">Your Brain on Burnout — The Book</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Lana Wray. All rights reserved. REMOTE Burnout Assessment™ is a trademark of Lana Wray.</p>
+</footer>
+
+<script>
+// ===== DATA =====
+const DIMENSIONS = [
+  {
+    key: 'R', name: 'Role Blur', color: '#F97316',
+    description: 'When there is no commute, no threshold, no moment of departure, your brain never gets the signal that the workday has ended.',
+    questions: [
+      "After closing my laptop, my mind keeps replaying work conversations and unfinished tasks",
+      "I get a wave of dread on Sunday evenings — not about Monday itself, but about the blur between now and then",
+      "I've caught myself checking Slack or email in bed, telling myself 'just one quick look'",
+      "The line between my work hours and personal time feels almost nonexistent",
+      "My brain doesn't seem to have an 'off switch' for work anymore — even during dinner or watching a show"
+    ]
+  },
+  {
+    key: 'E', name: 'Empathy Depletion', color: '#8B5CF6',
+    description: 'Video calls deliver faces but not the neurochemistry of presence. Your social brain runs on impoverished input — and it is exhausting.',
+    questions: [
+      "I feel more drained after a day of video calls than I ever did after a day of in-person meetings",
+      "On camera, I spend more energy managing how I look than actually listening to what's being said",
+      "I struggle to read my colleagues' real emotions through a screen — I'm often guessing",
+      "Meetings that should leave me energized just leave me empty",
+      "I genuinely miss the feeling of being in the same room as another person while working"
+    ]
+  },
+  {
+    key: 'M', name: 'Micro-Surveillance', color: '#06B6D4',
+    description: 'Whether there is monitoring software or just a culture of doubt, the result is the same: performative productivity replaces real work.',
+    questions: [
+      "I feel a constant low-level pressure to prove I'm actually working",
+      "I've kept my status 'green' or 'active' even when I was taking a break I needed",
+      "I sometimes do visible but meaningless work — sending messages, moving tasks — just to look productive",
+      "When I don't respond to a message within minutes, I feel a spike of anxiety about what people will think",
+      "I've realized I'm often working for the appearance of output, not the output itself"
+    ]
+  },
+  {
+    key: 'O', name: 'Osmotic Loneliness', color: '#EC4899',
+    description: 'Not loneliness from being alone — loneliness from being reachable by everyone and nourished by no one. It is a motivational drive, like hunger.',
+    questions: [
+      "I feel alone even though I'm in meetings and Slack channels all day",
+      "I miss the kind of spontaneous conversations that used to happen in hallways or over coffee",
+      "Even after a long day of collaboration, I have the feeling that nobody really 'sees' me",
+      "Most of my work interactions feel transactional — inputs and outputs, not real connection",
+      "There's a loneliness I carry that video calls and chat messages can't seem to fix"
+    ]
+  },
+  {
+    key: 'T', name: 'Techno-Overload', color: '#14B8A6',
+    description: 'Your attention span is under siege. Notification architecture, dopamine loops, attentional residue, and the Tone Tax of ambiguous digital messages.',
+    questions: [
+      "I can rarely focus on a single task for more than a few minutes without checking something else",
+      "I feel a near-physical pull to check my notifications, even when I know nothing urgent is there",
+      "Deep, focused work feels almost impossible in my current setup — I'm constantly interrupted",
+      "By midday, the sheer volume of messages across platforms feels genuinely overwhelming",
+      "An ambiguous text or Slack message can send me spiraling — wondering what the person really meant"
+    ]
+  },
+  {
+    key: 'E2', name: 'Escapelessness', color: '#F43F5E',
+    label: 'E',
+    description: 'When the place where you experience stress is the same place where you try to recover, the stress cycle never completes. Your nervous system loses the map.',
+    questions: [
+      "My home doesn't feel like home anymore — it feels like a place where work just happens to pause",
+      "I find it hard to truly relax in the same space where I've been stressed all day",
+      "There's no physical transition in my day — no commute, no walk, no threshold between work and life",
+      "I've started associating my bedroom or living room with deadlines and pressure",
+      "Sometimes I feel like I've lost who I am outside of work — there's no space left for the other me"
+    ]
+  }
+];
+
+const LIKERT = [
+  { value: 1, label: 'Never' },
+  { value: 2, label: 'Rarely' },
+  { value: 3, label: 'Sometimes' },
+  { value: 4, label: 'Often' },
+  { value: 5, label: 'Always' }
+];
+
+// ===== STATE =====
+let currentQ = 0;
+let answers = new Array(30).fill(null);
+
+// ===== NAVIGATION =====
+function startAssessment() {
+  const landing = document.getElementById('landing');
+  landing.classList.add('fade-out');
+  setTimeout(() => {
+    landing.classList.add('hidden');
+    const assess = document.getElementById('assessment');
+    assess.classList.remove('hidden');
+    renderQuestion(0, 'forward');
+  }, 500);
+}
+
+function getDimIndex(q) { return Math.floor(q / 5); }
+
+function renderQuestion(idx, direction) {
+  currentQ = idx;
+  const dim = DIMENSIONS[getDimIndex(idx)];
+  const qInDim = idx % 5;
+  
+  // Progress
+  document.getElementById('progressDimension').textContent = dim.name;
+  document.getElementById('progressCount').textContent = `${idx + 1} / 30`;
+  document.getElementById('progressFill').style.width = `${((idx + 1) / 30) * 100}%`;
+  
+  // Dimension label
+  const dimLabel = document.getElementById('dimLabel');
+  const dimLabelText = document.getElementById('dimLabelText');
+  dimLabel.classList.remove('visible');
+  dimLabelText.textContent = `${dim.label || dim.key} — ${dim.name} (${qInDim + 1}/5)`;
+  
+  // Question
+  const qText = document.getElementById('questionText');
+  qText.classList.remove('visible');
+  qText.textContent = `"${dim.questions[qInDim]}"`;
+  
+  // Likert
+  const scale = document.getElementById('likertScale');
+  scale.classList.remove('visible');
+  scale.innerHTML = LIKERT.map(opt => `
+    <div class="likert-option${answers[idx] === opt.value ? ' selected' : ''}" onclick="selectAnswer(${opt.value})" data-value="${opt.value}">
+      <div class="likert-radio"></div>
+      <span class="likert-text">${opt.label}</span>
+      <span class="likert-value">${opt.value}/5</span>
+    </div>
+  `).join('');
+  
+  // Nav
+  const navRow = document.getElementById('navRow');
+  navRow.classList.remove('visible');
+  document.getElementById('backBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = answers[idx] === null;
+  nextBtn.textContent = idx === 29 ? 'See Results' : 'Next';
+  // Re-add arrow SVG
+  if (idx < 29) {
+    nextBtn.innerHTML = 'Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  } else {
+    nextBtn.innerHTML = 'See Results <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  }
+  
+  // Animate in
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      dimLabel.classList.add('visible');
+      qText.classList.add('visible');
+      scale.classList.add('visible');
+      navRow.classList.add('visible');
+    });
+  });
+}
+
+function selectAnswer(value) {
+  answers[currentQ] = value;
+  document.querySelectorAll('.likert-option').forEach(el => {
+    el.classList.toggle('selected', parseInt(el.dataset.value) === value);
+  });
+  document.getElementById('nextBtn').disabled = false;
+  // Auto-advance after brief delay
+  setTimeout(() => {
+    if (currentQ < 29) {
+      nextQuestion();
+    }
+  }, 300);
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === null) return;
+  if (currentQ === 29) {
+    showResults();
+    return;
+  }
+  renderQuestion(currentQ + 1, 'forward');
+}
+
+function prevQuestion() {
+  if (currentQ > 0) renderQuestion(currentQ - 1, 'backward');
+}
+
+// ===== RESULTS =====
+function calculateScores() {
+  const scores = {};
+  DIMENSIONS.forEach((dim, i) => {
+    const start = i * 5;
+    const raw = answers.slice(start, start + 5).reduce((a, b) => a + (b || 0), 0);
+    const pct = Math.round(((raw - 5) / 20) * 100); // 5-25 → 0-100%
+    scores[dim.key] = { raw, pct: Math.max(0, pct), name: dim.name, description: dim.description, color: dim.color, label: dim.label || dim.key };
+  });
+  const overall = Math.round(Object.values(scores).reduce((a, b) => a + b.pct, 0) / 6);
+  return { scores, overall };
+}
+
+function getRiskLevel(pct) {
+  if (pct <= 30) return { level: 'Low', color: '#22C55E' };
+  if (pct <= 50) return { level: 'Moderate', color: '#EAB308' };
+  if (pct <= 70) return { level: 'High', color: '#F97316' };
+  return { level: 'Critical', color: '#EF4444' };
+}
+
+function getDimensionExplanation(key, pct) {
+  const risk = getRiskLevel(pct);
+  const explanations = {
+    'R': {
+      'Low': "Your brain still recognizes the boundary between work and rest. You've maintained healthy separation, and your cortisol likely has a normal daily rhythm.",
+      'Moderate': "The edges are starting to blur. Your brain is spending increasing energy trying to figure out when the workday actually ends - and sometimes it can't.",
+      'High': "Your HPA axis is running overtime. Without clear stop signals, your brain has defaulted to 'always on' - and the cognitive cost is accumulating daily.",
+      'Critical': "Your nervous system has lost the ability to detect 'end of threat.' The workday never truly ends for you, and chronic cortisol elevation is likely affecting your sleep, memory, and emotional regulation."
+    },
+    'E': {
+      'Low': "Your social brain circuits are holding up well. You're managing to maintain genuine connection despite the limitations of digital communication.",
+      'Moderate': "Video fatigue is real for you. Your mirror neuron system is working harder than it should to compensate for missing social signals - and it's starting to show.",
+      'High': "The gap between what your social brain needs and what screens can deliver has grown wide. You're running your empathy circuits on fumes.",
+      'Critical': "Your social brain is in energy-conservation mode. The constant effort of reading emotions through screens has depleted your capacity for connection - even when you want it most."
+    },
+    'M': {
+      'Low': "You've found a way to work without the weight of being watched. Your prefrontal cortex is free to focus on actual work rather than performing it.",
+      'Moderate': "The surveillance tax is creeping in. Part of your cognitive budget is being spent on visibility rather than value - and your brain knows the difference.",
+      'High': "A significant portion of your workday is performative. Your brain is splitting attention between doing the work and proving you're doing the work - and both suffer.",
+      'Critical': "Performative productivity has become your default mode. The chronic vigilance required to 'look busy' is hijacking your prefrontal cortex and blocking access to deep, meaningful work."
+    },
+    'O': {
+      'Low': "Despite working remotely, you've maintained nourishing connections. Your brain's social hunger is being met through genuine interaction.",
+      'Moderate': "There's a growing gap between being connected and feeling connected. Your brain registers the difference - digital contact is nutrition-poor for your social circuits.",
+      'High': "You're experiencing real social malnutrition. Being reachable by everyone but nourished by no one creates a particular kind of loneliness that chat messages can't fix.",
+      'Critical': "Osmotic loneliness has set in deeply. Your brain's social drive - as fundamental as hunger - is chronically unmet. This isn't about being alone; it's about being surrounded by connection that doesn't feed you."
+    },
+    'T': {
+      'Low': "Your attention architecture is holding. You've managed to protect your focus from the constant pull of notifications and context-switching.",
+      'Moderate': "The notification economy is starting to win. Your brain's reward circuits are increasingly responsive to pings and alerts, making sustained attention harder to maintain.",
+      'High': "Your attention span is fragmenting. The constant context-switching has created persistent attentional residue - your brain is never fully present in any single task.",
+      'Critical': "Your attentional system is in crisis. The combination of notification overload, dopamine loops, and the Tone Tax of ambiguous messages has left your prefrontal cortex in a state of chronic overwhelm."
+    },
+    'E2': {
+      'Low': "You've maintained healthy spatial boundaries. Your brain still recognizes 'home' as a place of rest and recovery, separate from work.",
+      'Moderate': "The spatial lines are fading. Your brain is starting to struggle with context collapse - the place where you stress and the place where you recover are merging.",
+      'High': "Your nervous system has lost its spatial anchors for recovery. Home has become a place that triggers work associations, making it harder for your stress cycle to complete.",
+      'Critical': "Complete spatial collapse. Your brain cannot locate 'safety' because the environment mapped to stress and the environment mapped to recovery are the same place. The stress cycle literally cannot complete."
+    }
+  };
+  return explanations[key]?.[risk.level] || '';
+}
+
+function buildRadarChart(scores) {
+  const size = 380;
+  const cx = size / 2, cy = size / 2;
+  const levels = 4;
+  const maxR = 140;
+  const dims = Object.values(scores);
+  const n = dims.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2; // start from top
+
+  function polarToCart(angle, r) {
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  }
+
+  let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
+  
+  // Grid
+  for (let l = 1; l <= levels; l++) {
+    const r = (maxR / levels) * l;
+    let pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = startAngle + i * angleStep;
+      const p = polarToCart(a, r);
+      pts.push(`${p.x},${p.y}`);
+    }
+    svg += `<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+  }
+  
+  // Axes
+  for (let i = 0; i < n; i++) {
+    const a = startAngle + i * angleStep;
+    const p = polarToCart(a, maxR);
+    svg += `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+  }
+  
+  // Data polygon
+  let dataPts = [];
+  for (let i = 0; i < n; i++) {
+    const a = startAngle + i * angleStep;
+    const r = (dims[i].pct / 100) * maxR;
+    const p = polarToCart(a, Math.max(r, 4));
+    dataPts.push(`${p.x},${p.y}`);
+  }
+  svg += `<polygon points="${dataPts.join(' ')}" fill="rgba(249,115,22,0.15)" stroke="#F97316" stroke-width="2.5" stroke-linejoin="round"/>`;
+  
+  // Data points
+  for (let i = 0; i < n; i++) {
+    const a = startAngle + i * angleStep;
+    const r = (dims[i].pct / 100) * maxR;
+    const p = polarToCart(a, Math.max(r, 4));
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="4.5" fill="#F97316" stroke="#0F172A" stroke-width="2"/>`;
+  }
+  
+  // Labels
+  const labelR = maxR + 30;
+  const labels = dims.map(d => `${d.label} - ${d.name}`);
+  for (let i = 0; i < n; i++) {
+    const a = startAngle + i * angleStep;
+    const p = polarToCart(a, labelR);
+    let anchor = 'middle';
+    let dx = 0;
+    if (Math.cos(a) > 0.2) { anchor = 'start'; dx = 4; }
+    else if (Math.cos(a) < -0.2) { anchor = 'end'; dx = -4; }
+    let dy = 0;
+    if (Math.sin(a) > 0.3) dy = 14;
+    else if (Math.sin(a) < -0.3) dy = -6;
+    else dy = 4;
+    svg += `<text x="${p.x + dx}" y="${p.y + dy}" text-anchor="${anchor}" fill="#94A3B8" font-size="11" font-family="Inter, sans-serif" font-weight="600">${dims[i].label}</text>`;
+    svg += `<text x="${p.x + dx}" y="${p.y + dy + 14}" text-anchor="${anchor}" fill="#64748B" font-size="9.5" font-family="Inter, sans-serif">${dims[i].name}</text>`;
+  }
+  
+  // Percentage labels on grid
+  for (let l = 1; l <= levels; l++) {
+    const r = (maxR / levels) * l;
+    const pct = Math.round((l / levels) * 100);
+    svg += `<text x="${cx + 4}" y="${cy - r - 3}" fill="#475569" font-size="9" font-family="Inter, sans-serif">${pct}%</text>`;
+  }
+
+  svg += '</svg>';
+  return svg;
+}
+
+function showResults() {
+  const { scores, overall } = calculateScores();
+  const risk = getRiskLevel(overall);
+  
+  // Find highest risk dimension
+  let highestKey = null, highestPct = -1;
+  for (const [k, v] of Object.entries(scores)) {
+    if (v.pct > highestPct) { highestPct = v.pct; highestKey = k; }
+  }
+  const highest = scores[highestKey];
+
+  // Track completion
+  console.log('[REMOTE Assessment] Completed', { overall, risk: risk.level, scores: Object.fromEntries(Object.entries(scores).map(([k,v]) => [k, v.pct])) });
+
+  const shareText = encodeURIComponent(`I just took the REMOTE Burnout Assessment™ — my burnout risk is ${overall}% (${risk.level}). Take yours: https://lana-wray.com/remote-assessment.html`);
+
+  document.getElementById('assessment').classList.add('hidden');
+  const resultsSection = document.getElementById('results');
+  resultsSection.classList.remove('hidden');
+  document.getElementById('siteFooter').classList.remove('hidden');
+
+  document.getElementById('resultsContent').innerHTML = `
+    <div class="results-header animate-in">
+      <h2>Your REMOTE Burnout Profile</h2>
+      <p>Here's what your brain has been trying to tell you.</p>
+    </div>
+
+    <div class="score-card animate-in" style="animation-delay: 0.1s">
+      <div class="score-label">Overall Burnout Risk</div>
+      <div class="score-value" style="color: ${risk.color}">${overall}%</div>
+      <div class="score-risk" style="color: ${risk.color}">${risk.level} Risk</div>
+    </div>
+
+    <div class="highest-risk animate-in" style="animation-delay: 0.2s">
+      <div class="highest-risk-icon">⚠️</div>
+      <div class="highest-risk-text">
+        Your highest risk area is <strong>${highest.name}</strong> at ${highestPct}%. 
+        This is where your nervous system is under the most strain right now.
+      </div>
+    </div>
+
+    <div class="radar-card animate-in" style="animation-delay: 0.3s">
+      <h3>Your REMOTE Stress Profile</h3>
+      <div class="radar-svg-container">
+        ${buildRadarChart(scores)}
+      </div>
+    </div>
+
+    <div class="dimensions-grid">
+      ${Object.entries(scores).map(([key, dim], i) => {
+        const r = getRiskLevel(dim.pct);
+        return `
+        <div class="dim-card animate-in" style="animation-delay: ${0.4 + i * 0.08}s">
+          <div class="dim-card-header">
+            <div class="dim-name">
+              <span class="dim-letter">${dim.label}</span>
+              ${dim.name}
+            </div>
+            <span class="dim-score" style="color: ${r.color}">${dim.pct}%</span>
+          </div>
+          <div class="dim-bar-track">
+            <div class="dim-bar-fill" style="background: ${r.color};" data-width="${dim.pct}%"></div>
+          </div>
+          <div class="dim-desc">${getDimensionExplanation(key, dim.pct)}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="share-section animate-in" style="animation-delay: 0.9s">
+      <h3>Share Your Results</h3>
+      <div class="share-buttons">
+        <a class="share-btn" href="https://twitter.com/intent/tweet?text=${shareText}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Share on X
+        </a>
+        <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://lana-wray.com/remote-assessment.html')}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Share on LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="email-capture animate-in" style="animation-delay: 1s">
+      <h3>Get Your Personalized Neuroscience Report</h3>
+      <p>Enter your email to receive a free summary with targeted insights for your highest-risk dimensions.</p>
+      <form class="email-form" id="emailForm" onsubmit="handleEmailSubmit(event)">
+        <input type="email" class="email-input" placeholder="your@email.com" required id="emailInput">
+        <button type="submit" class="email-submit">Send My Report</button>
+      </form>
+      <div id="emailSuccess" class="email-success hidden">✓ Check your inbox! Your personalized summary is on the way.</div>
+      <!-- TODO: Connect to MailerLite API - Group ID: [ADD_GROUP_ID] -->
+    </div>
+
+    <div class="upsell-section">
+      <div class="upsell-card animate-in" style="animation-delay: 1.1s">
+        <h3>Unlock Your Full Neurobiological Report</h3>
+        <div class="upsell-price">$14.99</div>
+        <ul class="upsell-features">
+          <li>Personalized 15-page PDF report with your complete REMOTE profile</li>
+          <li>Neuroscience explanations for each of your six stress dimensions</li>
+          <li>Targeted interventions designed for your specific risk pattern</li>
+          <li>How you compare with 5,000+ remote workers who've taken this assessment</li>
+          <li>Concrete 30-day action plan to reduce your highest-risk dimensions</li>
+        </ul>
+        <a href="https://lanawray.gumroad.com/l/burnout-report" target="_blank" rel="noopener" class="upsell-btn">
+          Get My Full Report
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="team-card animate-in" style="animation-delay: 1.2s">
+        <h3>Team Burnout Assessment</h3>
+        <p>Run the REMOTE Assessment across your entire team. Get aggregate risk profiles, department comparisons, and targeted organizational interventions.</p>
+        <div class="team-price">From $149</div>
+        <a href="https://lanawray.gumroad.com/l/team-assessment" target="_blank" rel="noopener" class="team-btn">
+          Learn More — For HR Leaders
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  `;
+
+  // Animate bar fills
+  setTimeout(() => {
+    document.querySelectorAll('.dim-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width;
+    });
+  }, 600);
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleEmailSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  console.log('[REMOTE Assessment] Email captured:', email);
+  // TODO: POST to MailerLite API
+  // fetch('https://api.mailerlite.com/api/v2/groups/[GROUP_ID]/subscribers', { ... })
+  document.getElementById('emailForm').classList.add('hidden');
+  document.getElementById('emailSuccess').classList.remove('hidden');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('assessment').classList.contains('hidden')) return;
+  const key = parseInt(e.key);
+  if (key >= 1 && key <= 5) selectAnswer(key);
+  if (e.key === 'ArrowRight' || e.key === 'Enter') nextQuestion();
+  if (e.key === 'ArrowLeft') prevQuestion();
+});
+</script>
+
+</body>
+</html>
