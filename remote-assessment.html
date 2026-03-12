@@ -1318,6 +1318,10 @@ function buildRadarChart(scores) {
 
 function showResults() {
   const { scores, overall } = calculateScores();
+
+  // Save scores to localStorage for report generation
+  localStorage.setItem('remoteAssessment', JSON.stringify({ scores, overall, date: new Date().toISOString() }));
+
   const risk = getRiskLevel(overall);
   
   // Find highest risk dimension

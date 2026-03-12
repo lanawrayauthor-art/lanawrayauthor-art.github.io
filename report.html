@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your REMOTE Burnout Profile | Personalized Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0F172A;
+    color: #E2E8F0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .logo { font-size: 48px; margin-bottom: 24px; }
+  h1 {
+    font-size: 28px;
+    color: #F97316;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #94A3B8;
+    margin-bottom: 40px;
+  }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid #1E293B;
+    border-top-color: #F97316;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status {
+    font-size: 18px;
+    color: #CBD5E1;
+    margin-bottom: 8px;
+  }
+  .progress-text {
+    font-size: 14px;
+    color: #64748B;
+    margin-bottom: 40px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); opacity: 0.9; }
+  .btn-primary {
+    background: #F97316;
+    color: #fff;
+  }
+  .btn-secondary {
+    background: #1E293B;
+    color: #F97316;
+    border: 1px solid #F97316;
+    margin-left: 12px;
+  }
+  .no-data {
+    background: #1E293B;
+    border-radius: 12px;
+    padding: 40px;
+  }
+  .no-data p {
+    margin-bottom: 24px;
+    font-size: 16px;
+    color: #94A3B8;
+  }
+  .buttons { margin-top: 24px; }
+  .hidden { display: none; }
+  .done-icon { font-size: 48px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- No Data State -->
+  <div id="noData" class="no-data hidden">
+    <div class="logo">📋</div>
+    <h1>No Assessment Data Found</h1>
+    <p>Please complete the REMOTE Burnout Assessment first. Your results will be saved automatically, then return here to generate your personalized report.</p>
+    <a href="remote-assessment.html" class="btn btn-primary">Take the Assessment</a>
+  </div>
+
+  <!-- Generating State -->
+  <div id="generating" class="hidden">
+    <div class="logo">🧠</div>
+    <h1>Your REMOTE Burnout Profile</h1>
+    <p class="subtitle">Personalized Neuroscience Report</p>
+    <div class="spinner"></div>
+    <p class="status" id="statusText">Generating your personalized report...</p>
+    <p class="progress-text" id="progressText">Analyzing your neural risk pattern</p>
+  </div>
+
+  <!-- Done State -->
+  <div id="done" class="hidden">
+    <div class="done-icon">✅</div>
+    <h1>Report Generated!</h1>
+    <p class="subtitle">Your personalized 12-page neuroscience report has been downloaded.</p>
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="downloadAgain()">Download Again</button>
+      <a href="remote-assessment.html" class="btn btn-secondary">Retake Assessment</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const { jsPDF } = window.jspdf;
+
+// ─── Risk Level Helper ───
+function getRiskLevel(score) {
+  if (score <= 25) return 'LOW';
+  if (score <= 50) return 'MODERATE';
+  if (score <= 75) return 'HIGH';
+  return 'CRITICAL';
+}
+
+function getRiskColor(level) {
+  return { LOW: [34,197,94], MODERATE: [250,204,21], HIGH: [249,115,22], CRITICAL: [239,68,68] }[level] || [148,163,184];
+}
+
+// ─── Dimension Data ───
+const DIMENSIONS = [
+  { key: 'R', name: 'Role Blur', full: 'Role Blur' },
+  { key: 'E', name: 'Empathy Depletion', full: 'Empathy Depletion' },
+  { key: 'M', name: 'Micro-Surveillance', full: 'Micro-Surveillance Stress' },
+  { key: 'O', name: 'Osmotic Loneliness', full: 'Osmotic Loneliness' },
+  { key: 'T', name: 'Techno-Overload', full: 'Techno-Overload' },
+  { key: 'E2', name: 'Escapelessness', full: 'Escapelessness' }
+];
+
+// Map dimension keys from assessment to our array
+function mapScores(scores) {
+  // The assessment stores: R, E, M, O, T, E2 (or similar)
+  // Try multiple key formats
+  return DIMENSIONS.map(d => {
+    const val = scores[d.key] ?? scores[d.name] ?? scores[d.full] ?? 0;
+    return { ...d, score: Math.round(val), risk: getRiskLevel(Math.round(val)) };
+  });
+}
+
+// ─── All Content ───
+const CONTENT = {
+  R: {
+    brain: {
+      LOW: "Your HPA axis maintains a healthy daily rhythm. Your brain receives clear signals about when work ends, allowing cortisol to follow its natural decline in the evening. This means your prefrontal cortex gets the recovery time it needs for next-day cognitive function.",
+      MODERATE: "Your cortisol curve is starting to flatten. Without consistent end-of-day signals, your HPA axis is losing its ability to distinguish work from recovery. You may notice your evenings feel less restorative than they used to.",
+      HIGH: "Your HPA axis is in chronic activation mode. The absence of clear work-end signals means your cortisol remains elevated into the evening, disrupting sleep architecture and compromising the memory consolidation that happens during deep sleep. Your prefrontal cortex is running a deficit.",
+      CRITICAL: "Your nervous system has lost the ability to detect \"end of threat.\" Cortisol elevation has become your baseline, not your stress response. This chronic activation is measurably affecting your sleep, emotional regulation, working memory, and decision-making capacity. This is not burnout approaching - this is burnout operating."
+    },
+    week: {
+      LOW: "Maintain your current boundaries. If you have a shutdown ritual, keep it. If you don't, consider adding a simple one - even closing the laptop at a consistent time sends a signal.",
+      MODERATE: "Set one hard shutdown time this week. At that time: close laptop, write three priorities for tomorrow on paper, walk outside 10 minutes without your phone. Do this every day. Your cortisol curve needs a predictable endpoint.",
+      HIGH: "Implement the Hard Shutdown Protocol immediately. Pick your time. Set a phone alarm. When it fires: laptop closed, phone in another room, 15-minute walk. Non-negotiable. Additionally, stop checking email/Slack within 1 hour of bedtime. The cortisol spike from a single work message takes 60-90 minutes to resolve.",
+      CRITICAL: "Emergency boundary reset. Today: pick a shutdown time and treat it like a medical appointment - unmovable. Remove work apps from your phone (use a separate device for work communication). Set up your bedroom as a phone-free zone. Your nervous system needs an immediate, dramatic signal that something has changed."
+    },
+    month: {
+      LOW: "Look for any creeping boundary erosion - Sunday evening email checks, pre-breakfast Slack scrolling. Address these before they become habits.",
+      MODERATE: "Create a \"fake commute\" - a 10-15 minute walk that bookends your workday. Walk before opening the laptop, walk after closing it. This gives your predictive processing system the mode-switch sequence it's missing.",
+      HIGH: "Renegotiate availability expectations with your manager. Use this language: \"I'm most effective when I have clear recovery windows. I'd like to be offline from [time] and available again at [time].\" Most managers will agree. The ones who won't are contributing to the problem.",
+      CRITICAL: "Consider whether your current work arrangement is structurally compatible with your nervous system's recovery requirements. This is not a lifestyle question - it is a medical one. If your environment cannot accommodate basic recovery boundaries, the environment needs to change."
+    },
+    longterm: "Your brain needs predictable transitions between states. The goal is not work-life \"balance\" (a misleading metaphor) but work-life separation - clear neural signals that one mode has ended and another has begun."
+  },
+  E: {
+    brain: {
+      LOW: "Your social processing circuits are managing the translation work of digital communication without significant depletion. You're likely maintaining some in-person or high-bandwidth social connections that replenish what screens drain.",
+      MODERATE: "Your mirror neuron system and social processing networks are working harder than they should. Video calls require your brain to reconstruct social signals (tone, micro-expressions, body language) from impoverished data - a process that's metabolically expensive and increasingly draining.",
+      HIGH: "Your social brain is running on fumes. The continuous effort of reading emotions through screens - combined with the self-monitoring burden of seeing your own face - has depleted your capacity for genuine empathic connection. You may notice you're less patient, less attuned, or less present in conversations.",
+      CRITICAL: "Your empathy circuits are in energy-conservation mode. This isn't a personality change - it's a neurological adaptation to sustained overcost. Your brain has reduced empathic processing to protect remaining resources. Relationships, decision-making, and leadership capacity are all affected."
+    },
+    week: {
+      LOW: "Keep doing what you're doing. If you notice video fatigue creeping in, turn off self-view - it reduces the self-monitoring load significantly.",
+      MODERATE: "Turn off self-view on ALL video calls this week. Replace one video meeting with a phone call while walking. Notice the difference in how drained you feel afterward.",
+      HIGH: "Audit your meeting schedule. Cancel or decline any meeting that could be an email. For remaining meetings: camera off for any meeting with more than 4 people. Reserve camera-on for 1-on-1s only. Replace at least 2 video calls with phone calls this week.",
+      CRITICAL: "Declare a video-call emergency diet. Maximum 3 hours of video calls per day. All group calls: camera off. Move 1-on-1s to phone or in-person where possible. Your social processing system needs immediate load reduction."
+    },
+    month: {
+      LOW: "Invest in at least one weekly in-person social interaction that isn't work-related. Your oxytocin system needs embodied presence.",
+      MODERATE: "Schedule one weekly \"real\" social interaction - in person, phone walk, anything with richer sensory input than a screen. Build a \"meeting-free morning\" into your weekly schedule.",
+      HIGH: "Restructure your communication patterns. Push for async-first team culture where possible. Batch video calls into 2-3 days rather than spreading them across every day. Create \"social recovery\" time after heavy meeting days.",
+      CRITICAL: "This level of depletion may require a more fundamental restructuring. Consider requesting a temporary reduction in meeting load from your manager. Frame it in performance terms: \"My decision quality and leadership presence are better when I have recovery windows between high-bandwidth interactions.\""
+    },
+    longterm: "Your social brain evolved for embodied, multi-sensory interaction. Video is a poor substitute. The goal is not to eliminate digital communication but to ensure your brain receives enough high-bandwidth social input to maintain its empathic capacity."
+  },
+  M: {
+    brain: {
+      LOW: "Your prefrontal cortex is free to allocate resources to actual work rather than performing it. You've established trust with your environment, and your amygdala isn't running constant social-evaluation scans.",
+      MODERATE: "Part of your cognitive budget is being spent on visibility theater. Every time you keep your status green, send a quick message to \"show presence,\" or attend a meeting you don't need - your prefrontal cortex is doing performance work instead of productive work.",
+      HIGH: "Performative productivity has become a significant cognitive tax. Your brain is splitting resources between two parallel processes: doing the work and proving you're doing the work. Neither gets your full capacity. This is measurable in reduced deep work quality and increased decision fatigue.",
+      CRITICAL: "Your default cognitive mode has shifted from productive to performative. The chronic vigilance required to \"look busy\" has hijacked your prefrontal cortex, blocking access to the deep, sustained thinking that your most valuable work requires. You're working harder and producing less - and your brain knows it."
+    },
+    week: {
+      LOW: "Notice if there are any subtle surveillance behaviors you've normalized. Even small ones (checking if your status is green, timing your responses) cost cognitive resources.",
+      MODERATE: "This week, time your responses intentionally. Reply to non-urgent messages at scheduled intervals (e.g., 10am, 1pm, 4pm) instead of immediately. Notice: does anyone actually care? Usually they don't.",
+      HIGH: "Do a Visibility Audit: for one full day, mark every action you take to appear busy vs. to be productive. Count them. The ratio will be uncomfortable - and it's the data you need.",
+      CRITICAL: "Have a direct conversation with your manager about output vs. presence. \"I want to be measured by what I deliver, not when my status dot is green. Here's what I've delivered this quarter.\" If your organization cannot hear this, that is diagnostic information about the organization."
+    },
+    month: {
+      LOW: "Advocate for output-based evaluation on your team. Small conversations compound.",
+      MODERATE: "Establish a \"deep work\" block on your calendar - 2 hours, status set to DND, no messages. Protect it for one month. Track what you produce during those blocks vs. the rest of your day.",
+      HIGH: "Push for team-level change. Propose: \"What if we measured results instead of response times?\" Start with a pilot week. Document the outcomes.",
+      CRITICAL: "This level of surveillance stress often indicates an organizational culture problem, not a personal one. Consider whether the culture can change from within, or whether your nervous system is paying the tax for a structural problem you cannot fix alone."
+    },
+    longterm: "Trust is the antidote to surveillance. The goal is environments where your work speaks for itself and your prefrontal cortex is free to do what it's designed for: complex, creative, sustained thinking."
+  },
+  O: {
+    brain: {
+      LOW: "Your social needs are being met. The brain's affiliative circuits - including oxytocin signaling and the default mode network's social modeling functions - are operating with adequate input.",
+      MODERATE: "There's a growing gap between being connected and feeling connected. Your dorsal raphe nucleus - the brain region that drives social seeking behavior - is registering a deficit, even though your calendar is full of interactions. Digital contact is calorie-free social nutrition.",
+      HIGH: "You're experiencing real social malnutrition. The brain's loneliness drive is as fundamental as hunger, and yours is chronically unmet. Being reachable by everyone but nourished by no one is a specific kind of pain that chat messages and emoji reactions cannot address.",
+      CRITICAL: "Osmotic loneliness has become a baseline condition. Your brain's social circuits are chronically understimulated despite constant digital contact. This affects not just wellbeing but cognitive function: the default mode network, which needs social input for its self-referential and creative processing, is operating on impoverished data."
+    },
+    week: {
+      LOW: "Maintain your social investments. If you have regular in-person connections, protect them as non-negotiable.",
+      MODERATE: "This week, have one conversation that isn't about work. Call someone. Meet for coffee. Walk with a friend. Not a video call - something with physical presence or at minimum voice + movement.",
+      HIGH: "Schedule three embodied social interactions this week. Not video. In person, phone while walking, anything with richer sensory input. Tell someone you trust: \"I've been feeling disconnected. Can we just talk?\" Vulnerability is the fastest path to genuine connection.",
+      CRITICAL: "Treat this as you would treat chronic hunger - with urgency. Daily human contact that is not work-related. Join a physical group activity (gym class, walking group, anything with co-present humans). Consider whether your work arrangement has structurally isolated you from the social input your brain requires to function."
+    },
+    month: {
+      LOW: "Look for ways to deepen existing connections. Quality matters more than quantity for oxytocin signaling.",
+      MODERATE: "Establish one weekly recurring social commitment that is embodied (not digital). A standing coffee date, a class, a regular walk with someone. Consistency matters - your brain needs predictable social input, not occasional bursts.",
+      HIGH: "Rebuild your social infrastructure deliberately. Map your current connections: how many involve physical presence? How many are work-only? The goal is at least 3 weekly interactions that are embodied and not work-related.",
+      CRITICAL: "This may require restructuring your daily environment. Consider coworking spaces, regular third-place visits (cafe, library, park), or any arrangement that puts you in proximity to other humans regularly. Your brain evolved for a social density that remote work cannot provide through screens."
+    },
+    longterm: "Your social brain needs embodied presence the way your visual cortex needs light. The goal is not more connections but deeper ones - and specifically, connections that operate through the full sensory channels your social circuits were designed to use."
+  },
+  T: {
+    brain: {
+      LOW: "Your attentional architecture is intact. You've maintained the ability to engage in sustained, focused work without constant interruption from notification systems. Your prefrontal cortex has adequate resources for complex cognitive tasks.",
+      MODERATE: "The notification economy is gaining ground. Your dopamine reward circuits are increasingly responsive to the variable-reward pattern of message checking - the same mechanism that makes slot machines compelling. Sustained attention is becoming harder, and you may not have noticed the decline because it's been gradual.",
+      HIGH: "Your attention is fragmenting. Chronic context-switching has created persistent attentional residue - the cognitive phenomenon where part of your working memory stays on the previous task even after you've nominally returned to the current one. Your prefrontal cortex is never fully present in any single task.",
+      CRITICAL: "Your attentional system is in crisis. The combination of notification overload, dopamine-driven checking behavior, and the Tone Tax of interpreting ambiguous messages has left your prefrontal cortex in chronic resource depletion. The \"4pm fog\" - where you can't process complex information despite adequate sleep - is likely a daily experience."
+    },
+    week: {
+      LOW: "Do a quick notification audit. Are there any you're receiving that you never act on? Turn those off. Maintenance is easier than repair.",
+      MODERATE: "Notification surgery, today: turn off ALL sound and badge notifications for Slack/Teams/email. Keep only direct message notifications. You will still check - but a chosen check costs your prefrontal cortex 10x less than an interrupt-driven one.",
+      HIGH: "Implement the Two-Device Protocol: work communication on one device, everything else on another. During deep work blocks, the communication device goes in another room. Additionally: schedule 3 specific check-in times per day for messages (e.g., 9am, 12pm, 4pm). Between those times, the apps are closed.",
+      CRITICAL: "Digital emergency reset. This week: remove Slack/Teams from your phone entirely (use only on computer). Set auto-responder: \"I check messages at 9am, 12pm, and 4pm. For urgent issues, call me.\" Block 90 minutes every morning for one task with all notifications disabled. Your prefrontal cortex needs at least one complete cognitive cycle per day to prevent further degradation."
+    },
+    month: {
+      LOW: "Protect your current attention health by establishing one daily \"deep work\" window where notifications are off. Prophylactic, not therapeutic.",
+      MODERATE: "Establish a daily 90-minute deep work block. Same time every day. Notifications off. One task. Track what you produce during this block vs. the rest of your day - the difference will convince you to protect it.",
+      HIGH: "Redesign your entire notification architecture. Audit every app, every alert, every badge. For each one, ask: \"Has failing to see this immediately ever caused a real problem?\" For 90%+ of them, the answer is no. Turn those off permanently.",
+      CRITICAL: "Your notification environment needs a complete rebuild. Consider: Can you batch all communication into 3-4 windows per day? Can you use an auto-responder? Can you negotiate team norms about response time expectations? The goal is to give your prefrontal cortex the uninterrupted time it needs to do the work your job actually requires."
+    },
+    longterm: "Your attention is the most valuable cognitive resource you have. The notification architecture of modern work was designed to capture it. Your job is to engineer an environment where your attention is yours to direct - not theirs to interrupt."
+  },
+  E2: {
+    brain: {
+      LOW: "You've maintained healthy spatial boundaries. Your hippocampus still recognizes distinct contexts for work and recovery, and your nervous system can complete the stress cycle because the spatial cues for \"work is over\" are intact.",
+      MODERATE: "Spatial context collapse is beginning. Your hippocampal place cells - which encode your physical environment and use it to predict what neural state is appropriate - are starting to merge your work context and recovery context. You may notice it's harder to \"switch off\" in spaces where you also work.",
+      HIGH: "Your home has been significantly enrolled in the work context. The place cells that once encoded your living space as \"safe, restful, recovery\" have been overwritten by two+ years of work associations. Your stress cycle cannot complete because the spatial signals for \"the threat has passed\" are absent.",
+      CRITICAL: "Complete spatial context collapse. Your nervous system cannot locate \"safety\" because the environment mapped to stress and the environment mapped to recovery are the same place. This is why your bed doesn't feel restful, your evenings feel like paused work, and your stress cycle literally cannot complete. Your hippocampus has been faithfully learning from what you've been doing in each room - and what you've been doing is working."
+    },
+    week: {
+      LOW: "Check for early signs of context bleed. Do you work from the couch? Eat at your desk? Check email in bed? Each one erodes a boundary your hippocampus needs.",
+      MODERATE: "Designate one surface in your home as absolutely, non-negotiably not for work. The couch, the bed, a specific chair. Remove the charger, remove the temptation. Give your hippocampus one location it can encode as \"not work.\"",
+      HIGH: "Implement the Scent Anchor protocol: buy a distinctive scent (candle, essential oil, hand cream) and use it ONLY during work hours. Olfactory signals reach the amygdala and hippocampus faster than any other sense - bypassing the thalamus entirely. Within a week, your limbic system will begin using it as a context cue. When the scent is absent, your brain gets the signal: this is not work.",
+      CRITICAL: "Spatial emergency protocol. Three changes, today: (1) Scent anchor for work hours only. (2) All work equipment physically covered or put away at end of day - laptop closed and in a bag, monitors off, desk lamp off. (3) Evening walk (15 min, no phone) as a spatial transition ritual. Your hippocampus needs dramatic, multi-sensory evidence that the context has changed."
+    },
+    month: {
+      LOW: "Invest in strengthening the spatial signals you have. Different lighting for work vs. evening. A specific playlist for work hours only. Consistency compounds.",
+      MODERATE: "Create a 15-minute transition ritual for the end of your workday. Close everything, change clothes, walk around the block. This is not a luxury - it's delivering the three neurological functions the commute used to provide: predictive mode-switch, stress-cycle completion, and hippocampal day-closure.",
+      HIGH: "Reclaim one room (or zone) as completely work-free. If you work in the bedroom, move the desk out. If that's impossible, use a physical barrier (screen, curtain) that goes up at end of day. Add different lighting for non-work hours. Every sensory distinction helps the hippocampus rebuild its context map.",
+      CRITICAL: "Consider whether your current living arrangement is structurally compatible with recovery. This is not about luxury - it's about whether your nervous system has access to the spatial signals it needs. Coworking spaces ($100-200/month) may be cheaper than the cognitive and health costs of complete spatial collapse. If moving work out isn't possible, the in-home protocols above become non-negotiable rather than optional."
+    },
+    longterm: "Your brain uses space to regulate its own state. When all spaces mean \"work,\" no space can mean \"rest.\" The goal is not a perfect home office - it's giving your hippocampus enough contextual variety that it can distinguish between states and prepare your nervous system accordingly."
+  }
+};
+
+// ─── PDF Generation ───
+let pdfBlob = null;
+
+function generatePDF(data) {
+  const { scores, overall, date } = data;
+  const dims = mapScores(scores);
+  const overallRisk = getRiskLevel(overall);
+  const assessDate = new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  const W = doc.internal.pageSize.getWidth();   // 612
+  const H = doc.internal.pageSize.getHeight();  // 792
+  const M = 50; // margin
+  const CW = W - 2 * M; // content width
+
+  const NAVY = [15, 23, 42];
+  const WHITE = [255, 255, 255];
+  const LIGHT = [226, 232, 240];
+  const MUTED = [148, 163, 184];
+  const ORANGE = [249, 115, 22];
+  const DARK_CARD = [30, 41, 59];
+
+  function bg() {
+    doc.setFillColor(...NAVY);
+    doc.rect(0, 0, W, H, 'F');
+  }
+
+  function header(pageNum) {
+    doc.setFontSize(8);
+    doc.setTextColor(...MUTED);
+    doc.text(`REMOTE Burnout Profile  |  ${shortDate}`, M, 30);
+    doc.text(`${pageNum}`, W - M, H - 25, { align: 'right' });
+    // subtle line
+    doc.setDrawColor(30, 41, 59);
+    doc.setLineWidth(0.5);
+    doc.line(M, 40, W - M, 40);
+  }
+
+  function wrapText(text, maxWidth, fontSize) {
+    doc.setFontSize(fontSize);
+    return doc.splitTextToSize(text, maxWidth);
+  }
+
+  // ─── PAGE 1: COVER ───
+  bg();
+  // Accent bar
+  doc.setFillColor(...ORANGE);
+  doc.rect(0, 0, 6, H, 'F');
+
+  doc.setFontSize(14);
+  doc.setTextColor(...ORANGE);
+  doc.text('R . E . M . O . T . E', W / 2, 180, { align: 'center' });
+
+  doc.setFontSize(32);
+  doc.setTextColor(...WHITE);
+  doc.text('Your REMOTE', W / 2, 230, { align: 'center' });
+  doc.text('Burnout Profile', W / 2, 268, { align: 'center' });
+
+  doc.setFontSize(16);
+  doc.setTextColor(...MUTED);
+  doc.text('A Personalized Neuroscience Report', W / 2, 310, { align: 'center' });
+
+  // Overall score circle
+  const riskCol = getRiskColor(overallRisk);
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(W / 2 - 80, 360, 160, 120, 10, 10, 'F');
+  doc.setFontSize(48);
+  doc.setTextColor(...riskCol);
+  doc.text(`${Math.round(overall)}%`, W / 2, 415, { align: 'center' });
+  doc.setFontSize(14);
+  doc.text(overallRisk + ' RISK', W / 2, 445, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setTextColor(...MUTED);
+  doc.text(`Overall Burnout Risk`, W / 2, 468, { align: 'center' });
+
+  doc.setFontSize(11);
+  doc.setTextColor(...MUTED);
+  doc.text(`Assessment Date: ${assessDate}`, W / 2, 530, { align: 'center' });
+
+  doc.setFontSize(12);
+  doc.setTextColor(...LIGHT);
+  doc.text('Based on the REMOTE Stress Model by Lana Wray', W / 2, 620, { align: 'center' });
+
+  doc.setFontSize(9);
+  doc.setTextColor(...MUTED);
+  doc.text('lana-wray.com', W / 2, 700, { align: 'center' });
+
+  doc.text('1', W - M, H - 25, { align: 'right' });
+
+  // ─── PAGE 2: RESULTS OVERVIEW ───
+  doc.addPage();
+  bg();
+  header(2);
+  let y = 65;
+
+  doc.setFontSize(22);
+  doc.setTextColor(...ORANGE);
+  doc.text('Your Results Overview', M, y);
+  y += 35;
+
+  // Overall
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(M, y, CW, 60, 8, 8, 'F');
+  doc.setFontSize(14);
+  doc.setTextColor(...WHITE);
+  doc.text('Overall Burnout Risk', M + 15, y + 25);
+  doc.setFontSize(24);
+  const orc = getRiskColor(overallRisk);
+  doc.setTextColor(...orc);
+  doc.text(`${Math.round(overall)}% - ${overallRisk}`, W - M - 15, y + 30, { align: 'right' });
+  y += 78;
+
+  // Each dimension
+  dims.forEach(d => {
+    const rc = getRiskColor(d.risk);
+    doc.setFillColor(...DARK_CARD);
+    doc.roundedRect(M, y, CW, 42, 6, 6, 'F');
+    // Letter badge
+    doc.setFillColor(...rc);
+    doc.roundedRect(M + 10, y + 8, 28, 26, 4, 4, 'F');
+    doc.setFontSize(14);
+    doc.setTextColor(...NAVY);
+    doc.setFont('Helvetica', 'bold');
+    doc.text(d.key === 'E2' ? 'E' : d.key, M + 24, y + 26, { align: 'center' });
+    doc.setFont('Helvetica', 'normal');
+    // Name
+    doc.setFontSize(12);
+    doc.setTextColor(...WHITE);
+    doc.text(d.name, M + 48, y + 22);
+    // Score
+    doc.setFontSize(14);
+    doc.setTextColor(...rc);
+    doc.text(`${d.score}%`, W - M - 70, y + 24, { align: 'right' });
+    doc.setFontSize(9);
+    doc.text(d.risk, W - M - 15, y + 24, { align: 'right' });
+    y += 50;
+  });
+
+  y += 15;
+  // Highest risk
+  const highest = [...dims].sort((a, b) => b.score - a.score)[0];
+  doc.setFillColor(249, 115, 22, 0.15);
+  doc.setFillColor(30, 25, 15);
+  doc.roundedRect(M, y, CW, 50, 8, 8, 'F');
+  doc.setDrawColor(...ORANGE);
+  doc.setLineWidth(1);
+  doc.roundedRect(M, y, CW, 50, 8, 8, 'S');
+  doc.setFontSize(11);
+  doc.setTextColor(...ORANGE);
+  doc.text(`Your highest risk area: ${highest.name} at ${highest.score}%`, M + 15, y + 20);
+  doc.setFontSize(9);
+  doc.setTextColor(...MUTED);
+  const lines2 = wrapText('This dimension receives the most detailed interventions in your personalized plan below.', CW - 30, 9);
+  doc.text(lines2, M + 15, y + 36);
+
+  y += 70;
+  doc.setFontSize(10);
+  doc.setTextColor(...MUTED);
+  const modelDesc = wrapText('The REMOTE model measures six neurological dimensions of remote work stress: Role Blur, Empathy Depletion, Micro-Surveillance, Osmotic Loneliness, Techno-Overload, and Escapelessness. Each dimension represents a distinct neural pathway affected by the absence of traditional workplace structures.', CW, 10);
+  doc.text(modelDesc, M, y);
+
+  // ─── PAGE 3: UNDERSTANDING YOUR PROFILE ───
+  doc.addPage();
+  bg();
+  header(3);
+  y = 65;
+
+  doc.setFontSize(22);
+  doc.setTextColor(...ORANGE);
+  doc.text('Understanding Your Profile', M, y);
+  y += 30;
+
+  doc.setFontSize(12);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('What Your Overall Score Means', M, y);
+  doc.setFont('Helvetica', 'normal');
+  y += 18;
+
+  const overallExplanations = {
+    LOW: "Your overall burnout risk is low, which means your nervous system is managing the demands of remote work without significant strain. Your brain's stress-response systems - the HPA axis, prefrontal cortex, and social processing networks - are operating within healthy parameters. This doesn't mean you're immune to burnout; it means your current strategies are working. The interventions in this report will help you maintain this baseline and address any emerging vulnerabilities before they compound.",
+    MODERATE: "Your overall burnout risk is moderate, indicating that several of your brain's stress-response systems are working harder than they should. You may not feel \"burned out\" yet - moderate risk often presents as a general sense that things are harder than they used to be, that your resilience is thinner, or that recovery takes longer. This is the critical intervention window: the changes recommended in this report can prevent escalation to high-risk territory where recovery becomes significantly more difficult.",
+    HIGH: "Your overall burnout risk is high. This means multiple neurological systems are under sustained strain. Your HPA axis, prefrontal cortex, and social processing networks are all showing signs of chronic overload. You likely experience some combination of: difficulty concentrating, emotional reactivity, sleep disruption, and a persistent sense of depletion that weekends don't resolve. The interventions in this report are not optional wellness suggestions - they are necessary neural recovery protocols.",
+    CRITICAL: "Your overall burnout risk is critical. This is not a warning - it is a diagnosis. Multiple neurological systems are in chronic depletion, and your brain's stress-response architecture has shifted from acute (responding to specific threats) to chronic (running in threat-detection mode continuously). The interventions in this report should be treated with the same urgency you would give to any other medical concern. Recovery is possible, but it requires immediate, structural changes - not just better self-care."
+  };
+
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+  const oLines = wrapText(overallExplanations[overallRisk], CW, 10);
+  doc.text(oLines, M, y);
+  y += oLines.length * 13 + 20;
+
+  doc.setFontSize(12);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('How to Read Dimension Scores', M, y);
+  doc.setFont('Helvetica', 'normal');
+  y += 18;
+
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+  const readScores = wrapText("Each of the six REMOTE dimensions is scored independently on a 0-100% scale. Risk levels are: LOW (0-25%) - healthy functioning with room for optimization; MODERATE (26-50%) - early warning signs, best time to intervene; HIGH (51-75%) - significant neural strain requiring active intervention; CRITICAL (76-100%) - chronic depletion requiring immediate structural change. Your dimensions interact with each other. High scores in one area often amplify others - for example, Techno-Overload accelerates Empathy Depletion, and Escapelessness worsens Role Blur. The 30-day plan at the end of this report addresses your dimensions in priority order.", CW, 10);
+  doc.text(readScores, M, y);
+  y += readScores.length * 13 + 20;
+
+  doc.setFontSize(12);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('The Neuroscience Behind This Assessment', M, y);
+  doc.setFont('Helvetica', 'normal');
+  y += 18;
+
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+  const neuroText = wrapText("This assessment is grounded in peer-reviewed neuroscience research spanning stress physiology, attention science, social neuroscience, and environmental psychology. The questions map to measurable neural and hormonal processes: cortisol rhythms (Role Blur), mirror neuron fatigue (Empathy Depletion), prefrontal resource allocation (Micro-Surveillance), oxytocin signaling (Osmotic Loneliness), dopaminergic attention capture (Techno-Overload), and hippocampal context encoding (Escapelessness). Each intervention in this report targets the specific neural mechanism identified by your scores.", CW, 10);
+  doc.text(neuroText, M, y);
+  y += neuroText.length * 13 + 25;
+
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(M, y, CW, 40, 6, 6, 'F');
+  doc.setFontSize(10);
+  doc.setTextColor(...ORANGE);
+  doc.text('This report provides evidence-based interventions personalized to your specific risk pattern.', M + 15, y + 25);
+
+  // ─── PAGES 4-9: DIMENSION DEEP DIVES ───
+  const dimKeys = ['R', 'E', 'M', 'O', 'T', 'E2'];
+  dims.forEach((dim, idx) => {
+    doc.addPage();
+    bg();
+    header(4 + idx);
+    y = 65;
+
+    const content = CONTENT[dim.key];
+    const risk = dim.risk;
+    const rc = getRiskColor(risk);
+
+    // Dimension header
+    doc.setFillColor(...rc);
+    doc.roundedRect(M, y - 12, 36, 36, 6, 6, 'F');
+    doc.setFontSize(22);
+    doc.setTextColor(...NAVY);
+    doc.setFont('Helvetica', 'bold');
+    doc.text(dim.key === 'E2' ? 'E' : dim.key, M + 18, y + 12, { align: 'center' });
+    doc.setFont('Helvetica', 'normal');
+
+    doc.setFontSize(20);
+    doc.setTextColor(...WHITE);
+    doc.text(dim.name, M + 46, y + 10);
+
+    // Score pill
+    doc.setFontSize(12);
+    doc.setTextColor(...rc);
+    doc.text(`${dim.score}% - ${risk}`, W - M, y + 10, { align: 'right' });
+    y += 38;
+
+    // Separator
+    doc.setDrawColor(...ORANGE);
+    doc.setLineWidth(1);
+    doc.line(M, y, W - M, y);
+    y += 18;
+
+    // Helper to add a section
+    function addSection(title, text, isLast) {
+      if (y > H - 80) {
+        doc.addPage(); bg(); header(''); y = 55;
+      }
+      doc.setFontSize(11);
+      doc.setTextColor(...ORANGE);
+      doc.setFont('Helvetica', 'bold');
+      doc.text(title, M, y);
+      doc.setFont('Helvetica', 'normal');
+      y += 16;
+
+      doc.setFontSize(9.5);
+      doc.setTextColor(...LIGHT);
+      const lines = wrapText(text, CW, 9.5);
+      // Check if lines fit
+      const needed = lines.length * 12.5;
+      if (y + needed > H - 40) {
+        // Split across pages
+        const availLines = Math.floor((H - 40 - y) / 12.5);
+        if (availLines > 2) {
+          doc.text(lines.slice(0, availLines), M, y);
+          doc.addPage(); bg(); header(''); y = 55;
+          doc.text(lines.slice(availLines), M, y);
+          y += (lines.length - availLines) * 12.5 + 15;
+        } else {
+          doc.addPage(); bg(); header(''); y = 55;
+          doc.text(lines, M, y);
+          y += needed + 15;
+        }
+      } else {
+        doc.text(lines, M, y);
+        y += needed + 15;
+      }
+    }
+
+    addSection('What\'s happening in your brain:', content.brain[risk]);
+    addSection('What to do this week:', content.week[risk]);
+    addSection('What to do this month:', content.month[risk]);
+    addSection('Long-term shift:', content.longterm, true);
+  });
+
+  // ─── PAGE 10: 30-DAY RECOVERY PLAN ───
+  doc.addPage();
+  bg();
+  header(10);
+  y = 65;
+
+  doc.setFontSize(22);
+  doc.setTextColor(...ORANGE);
+  doc.text('Your 30-Day Recovery Plan', M, y);
+  y += 15;
+
+  doc.setFontSize(10);
+  doc.setTextColor(...MUTED);
+  doc.text('Personalized to your top 3 risk dimensions', M, y);
+  y += 25;
+
+  const sorted = [...dims].sort((a, b) => b.score - a.score);
+  const top3 = sorted.slice(0, 3);
+
+  const weekPlans = [
+    {
+      title: `Week 1: ${top3[0].name} (${top3[0].score}% - ${top3[0].risk})`,
+      subtitle: 'Emergency Interventions',
+      actions: [
+        CONTENT[top3[0].key].week[top3[0].risk],
+        'Track your energy levels each evening (1-10 scale). This creates the baseline data you need to measure recovery.'
+      ]
+    },
+    {
+      title: `Week 2: Add ${top3[1].name} (${top3[1].score}% - ${top3[1].risk})`,
+      subtitle: 'Layered Interventions',
+      actions: [
+        'Continue Week 1 protocols.',
+        CONTENT[top3[1].key].week[top3[1].risk],
+        'Notice which interventions feel sustainable vs. forced. Forced ones need modification, not abandonment.'
+      ]
+    },
+    {
+      title: `Week 3: Add ${top3[2].name} (${top3[2].score}% - ${top3[2].risk})`,
+      subtitle: 'Full Protocol',
+      actions: [
+        'Continue Weeks 1-2 protocols.',
+        CONTENT[top3[2].key].week[top3[2].risk],
+        'Begin the monthly interventions for your Week 1 dimension: ' + CONTENT[top3[0].key].month[top3[0].risk]
+      ]
+    },
+    {
+      title: 'Week 4: Integration & Habit Formation',
+      subtitle: 'Making It Stick',
+      actions: [
+        'Review your energy tracking data. Which interventions made the biggest difference?',
+        'Keep the 3 most effective changes. Release anything that isn\'t working.',
+        'Begin monthly interventions for your Week 2 dimension.',
+        'Schedule your 30-day reassessment at lana-wray.com/remote-assessment.html'
+      ]
+    }
+  ];
+
+  weekPlans.forEach((week, wi) => {
+    if (y > H - 120) {
+      doc.addPage(); bg(); header(10); y = 55;
+    }
+    doc.setFillColor(...DARK_CARD);
+    const blockH = 18 + week.actions.length * 45;
+    // Just draw header
+    doc.setFontSize(12);
+    doc.setTextColor(...ORANGE);
+    doc.setFont('Helvetica', 'bold');
+    doc.text(week.title, M, y);
+    doc.setFont('Helvetica', 'normal');
+    y += 14;
+    doc.setFontSize(9);
+    doc.setTextColor(...MUTED);
+    doc.text(week.subtitle, M, y);
+    y += 16;
+
+    week.actions.forEach((action, ai) => {
+      if (y > H - 50) {
+        doc.addPage(); bg(); header(10); y = 55;
+      }
+      doc.setFontSize(9.5);
+      doc.setTextColor(...LIGHT);
+      const aLines = wrapText(`${ai + 1}. ${action}`, CW - 10, 9.5);
+      doc.text(aLines, M + 10, y);
+      y += aLines.length * 12.5 + 6;
+    });
+    y += 12;
+  });
+
+  // ─── PAGE 11: THE SCIENCE BEHIND REMOTE ───
+  doc.addPage();
+  bg();
+  header(11);
+  y = 65;
+
+  doc.setFontSize(22);
+  doc.setTextColor(...ORANGE);
+  doc.text('The Science Behind REMOTE', M, y);
+  y += 30;
+
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+
+  const scienceText = [
+    "The REMOTE model was developed by synthesizing research from neuroscience, occupational psychology, and stress physiology to address a gap in how we understand remote work burnout. Traditional burnout models (Maslach, Copenhagen) were designed for in-person work environments and miss the specific neural mechanisms that remote work disrupts.",
+    "",
+    "Each REMOTE dimension maps to a distinct neurological system:",
+    "",
+    "Role Blur targets the HPA (hypothalamic-pituitary-adrenal) axis and cortisol regulation. Research by Sonnentag (2018) demonstrates that psychological detachment from work is essential for cortisol recovery, and remote work systematically undermines this detachment.",
+    "",
+    "Empathy Depletion draws on mirror neuron research and the metabolic cost of social processing through impoverished digital channels. Video communication requires significantly more cognitive resources than in-person interaction (Bailenson, 2021).",
+    "",
+    "Micro-Surveillance reflects Arnsten's (2009) research on prefrontal cortex function under stress. The vigilance required for performative productivity directly competes with the deep thinking the prefrontal cortex is designed to support.",
+    "",
+    "Osmotic Loneliness builds on social neuroscience research showing that digital social contact does not activate the same oxytocin and affiliative neural circuits as embodied presence (Cacioppo & Patrick, 2008).",
+    "",
+    "Techno-Overload incorporates Mark's (2015) research on attention fragmentation and Leroy's (2009) work on attention residue - the cognitive cost of switching between tasks.",
+    "",
+    "Escapelessness applies environmental psychology and hippocampal place cell research to explain why working from home creates a specific form of stress that traditional models miss: spatial context collapse.",
+    "",
+    "These dimensions are not independent. They interact in predictable ways: Techno-Overload accelerates Empathy Depletion. Escapelessness amplifies Role Blur. Micro-Surveillance worsens Osmotic Loneliness. The 30-day plan in this report accounts for these interactions by sequencing interventions strategically.",
+    "",
+    "The stress cycle framework referenced throughout draws on Nagoski & Nagoski's (2019) research showing that removing a stressor is not the same as completing the body's stress response - a distinction that is critical for remote workers whose stressors are ambient and continuous."
+  ];
+
+  scienceText.forEach(para => {
+    if (para === '') { y += 6; return; }
+    const lines = wrapText(para, CW, 10);
+    if (y + lines.length * 13 > H - 40) {
+      doc.addPage(); bg(); header(11); y = 55;
+    }
+    doc.text(lines, M, y);
+    y += lines.length * 13 + 2;
+  });
+
+  // ─── PAGE 12: NEXT STEPS & RESOURCES ───
+  doc.addPage();
+  bg();
+  header(12);
+  y = 65;
+
+  doc.setFontSize(22);
+  doc.setTextColor(...ORANGE);
+  doc.text('Next Steps & Resources', M, y);
+  y += 35;
+
+  // Book
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(M, y, CW, 90, 8, 8, 'F');
+  doc.setFontSize(13);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('Read the Book', M + 20, y + 25);
+  doc.setFont('Helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(...LIGHT);
+  doc.text('"Your Brain on Burnout" by Lana Wray', M + 20, y + 45);
+  doc.setFontSize(10);
+  doc.setTextColor(...MUTED);
+  doc.text('The complete neuroscience framework behind this assessment,', M + 20, y + 62);
+  doc.text('with detailed protocols for each REMOTE dimension.', M + 20, y + 75);
+  doc.setFontSize(9);
+  doc.setTextColor(...ORANGE);
+  doc.text('amazon.com/dp/B0GPF3NLQ4', M + 20, y + 88);
+  y += 110;
+
+  // Retake
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(M, y, CW, 70, 8, 8, 'F');
+  doc.setFontSize(13);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('Track Your Progress', M + 20, y + 25);
+  doc.setFont('Helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+  doc.text('Retake the REMOTE assessment in 30 days to measure your recovery.', M + 20, y + 45);
+  doc.setFontSize(9);
+  doc.setTextColor(...ORANGE);
+  doc.text('lana-wray.com/remote-assessment.html', M + 20, y + 62);
+  y += 90;
+
+  // Team
+  doc.setFillColor(...DARK_CARD);
+  doc.roundedRect(M, y, CW, 90, 8, 8, 'F');
+  doc.setFontSize(13);
+  doc.setTextColor(...WHITE);
+  doc.setFont('Helvetica', 'bold');
+  doc.text('Team Assessment', M + 20, y + 25);
+  doc.setFont('Helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(...LIGHT);
+  const teamLines = wrapText('Is your team burning out? The REMOTE Team Assessment provides aggregate data across all six dimensions, identifies systemic risk patterns, and delivers actionable recommendations for managers and HR leaders.', CW - 40, 10);
+  doc.text(teamLines, M + 20, y + 45);
+  doc.setFontSize(11);
+  doc.setTextColor(...ORANGE);
+  doc.text('$149  |  lana-wray.com', M + 20, y + 45 + teamLines.length * 13 + 5);
+  y += 110;
+
+  // Footer message
+  y += 20;
+  doc.setFontSize(11);
+  doc.setTextColor(...MUTED);
+  const closing = wrapText("Recovery is not about doing more. It's about giving your nervous system the specific inputs it needs to restore its natural capacity. The interventions in this report are designed to be minimal and targeted - the smallest changes that produce the largest neurological shifts. Start with Week 1. One dimension at a time. Your brain will do the rest.", CW, 11);
+  doc.text(closing, M, y);
+
+  y += closing.length * 14 + 30;
+  doc.setFontSize(10);
+  doc.setTextColor(...ORANGE);
+  doc.text('Lana Wray', W / 2, y, { align: 'center' });
+  doc.setFontSize(9);
+  doc.setTextColor(...MUTED);
+  doc.text('Neuroscience of Remote Work', W / 2, y + 16, { align: 'center' });
+  doc.text('lana-wray.com', W / 2, y + 30, { align: 'center' });
+
+  return doc;
+}
+
+function downloadAgain() {
+  if (pdfBlob) {
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'REMOTE-Burnout-Profile.pdf';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+
+// ─── Main ───
+window.addEventListener('DOMContentLoaded', () => {
+  const raw = localStorage.getItem('remoteAssessment');
+  if (!raw) {
+    document.getElementById('noData').classList.remove('hidden');
+    return;
+  }
+
+  let data;
+  try { data = JSON.parse(raw); } catch (e) {
+    document.getElementById('noData').classList.remove('hidden');
+    return;
+  }
+
+  if (!data.scores || data.overall === undefined) {
+    document.getElementById('noData').classList.remove('hidden');
+    return;
+  }
+
+  document.getElementById('generating').classList.remove('hidden');
+
+  // Small delay for UX
+  setTimeout(() => {
+    document.getElementById('progressText').textContent = 'Building personalized interventions...';
+  }, 600);
+
+  setTimeout(() => {
+    document.getElementById('progressText').textContent = 'Formatting your 12-page report...';
+  }, 1200);
+
+  setTimeout(() => {
+    try {
+      const doc = generatePDF(data);
+      pdfBlob = doc.output('blob');
+
+      // Auto-download
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'REMOTE-Burnout-Profile.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      document.getElementById('generating').classList.add('hidden');
+      document.getElementById('done').classList.remove('hidden');
+    } catch (err) {
+      document.getElementById('statusText').textContent = 'Error generating report';
+      document.getElementById('progressText').textContent = err.message;
+      console.error(err);
+    }
+  }, 1800);
+});
+</script>
+</body>
+</html>
