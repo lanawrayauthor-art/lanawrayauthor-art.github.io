@@ -1488,15 +1488,7 @@ function showResults() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function handleEmailSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('emailInput').value;
-  console.log('[REMOTE Assessment] Email captured:', email);
-  // TODO: POST to MailerLite API
-  // fetch('https://api.mailerlite.com/api/v2/groups/[GROUP_ID]/subscribers', { ... })
-  document.getElementById('emailForm').classList.add('hidden');
-  document.getElementById('emailSuccess').classList.remove('hidden');
-}
+// Email handled by MailerLite embedded form
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
