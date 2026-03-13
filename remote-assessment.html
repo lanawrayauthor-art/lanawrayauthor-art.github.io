@@ -1409,15 +1409,21 @@ function showResults() {
     </div>
 
     <div class="email-capture animate-in" style="animation-delay: 1s">
-      <h3>Get Your Personalized Neuroscience Report</h3>
-      <p>Enter your email to receive a free summary with targeted insights for your highest-risk dimensions.</p>
-      <form class="email-form" id="emailForm" onsubmit="handleEmailSubmit(event)">
-        <input type="email" class="email-input" placeholder="your@email.com" required id="emailInput">
-        <button type="submit" class="email-submit">Send My Report</button>
-      </form>
-      <div id="emailSuccess" class="email-success hidden">✓ Check your inbox! Your personalized summary is on the way.</div>
-      <!-- TODO: Connect to MailerLite API - Group ID: [ADD_GROUP_ID] -->
+      <h3>Get Your Free Burnout Insights</h3>
+      <p>Evidence-based tips for your highest-risk dimensions, delivered to your inbox.</p>
+      <!-- MailerLite Embedded Form -->
+      <div class="ml-embedded" data-form="o7FwaH"></div>
     </div>
+
+    <!-- MailerLite Universal -->
+    <script>
+     (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+     .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+     n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+     (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+     ml('account', '2134096');
+    </script>
+    <!-- End MailerLite Universal -->
 
     <div class="upsell-section">
       <div class="upsell-card animate-in" style="animation-delay: 1.1s">
@@ -1461,15 +1467,7 @@ function showResults() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function handleEmailSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('emailInput').value;
-  console.log('[REMOTE Assessment] Email captured:', email);
-  // TODO: POST to MailerLite API
-  // fetch('https://api.mailerlite.com/api/v2/groups/[GROUP_ID]/subscribers', { ... })
-  document.getElementById('emailForm').classList.add('hidden');
-  document.getElementById('emailSuccess').classList.remove('hidden');
-}
+// Email handled by MailerLite embedded form
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
