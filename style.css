@@ -229,29 +229,43 @@ a:hover { opacity: 0.8; }
 .resource-card h3 { font-size: 24px; margin-bottom: 12px; }
 .resource-card p { color: var(--text-muted); margin-bottom: 24px; }
 
-/* === PUBLISHED WORKS SHOWCASE === */
+/* === PUBLISHED WORKS SHOWCASE — HORIZONTAL CAROUSEL === */
 .showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    max-width: 960px;
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 4px 24px;
     margin: 0 auto;
+    max-width: 960px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(249,115,22,0.3) transparent;
+    justify-content: center;
 }
+.showcase-grid::-webkit-scrollbar { height: 6px; }
+.showcase-grid::-webkit-scrollbar-track { background: transparent; }
+.showcase-grid::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.25); border-radius: 3px; }
+.showcase-grid::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,0.45); }
+
 .showcase-card {
+    flex: 0 0 260px;
+    max-width: 260px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
+    scroll-snap-align: center;
     transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .showcase-card:hover {
     border-color: var(--accent);
-    transform: translateY(-6px);
-    box-shadow: 0 16px 48px rgba(249, 115, 22, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(249, 115, 22, 0.10);
 }
 .showcase-cover {
     width: 100%;
-    aspect-ratio: 1683 / 2600;
+    aspect-ratio: 5 / 8;
     background: linear-gradient(160deg, #1a2744 0%, #0d1520 60%, #2a1a0a 100%);
     border-bottom: 1px solid var(--border);
     overflow: hidden;
@@ -273,74 +287,78 @@ a:hover { opacity: 0.8; }
     position: absolute;
     top: 0;
     left: 0;
-    padding: 40px;
+    padding: 24px;
     text-align: center;
 }
 .showcase-cover-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(20px, 3vw, 28px);
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
     line-height: 1.25;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .showcase-cover-author {
-    font-size: 13px;
+    font-size: 11px;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 .showcase-body {
-    padding: 28px 28px 32px;
+    padding: 16px 18px 20px;
 }
 .showcase-badge {
     display: inline-block;
     background: rgba(249, 115, 22, 0.08);
     border: 1px solid rgba(249, 115, 22, 0.15);
     color: var(--accent);
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 4px;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 .showcase-body h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-size: 17px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     line-height: 1.25;
 }
 .showcase-subtitle {
-    font-size: 13px;
+    font-size: 11px;
     color: var(--text-muted);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
     font-style: italic;
+    line-height: 1.5;
 }
 .showcase-desc {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 20px;
+    line-height: 1.6;
+    margin-bottom: 14px;
 }
 .showcase-actions {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 8px;
 }
+.showcase-actions .btn { font-size: 13px; padding: 10px 16px; text-align: center; }
 .btn-sample {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     border: 1px solid var(--border);
     color: var(--text-muted) !important;
-    padding: 14px 20px;
+    padding: 10px 16px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     transition: all 0.2s;
+    text-align: center;
 }
 .btn-sample:hover {
     border-color: var(--accent);
@@ -495,7 +513,8 @@ a:hover { opacity: 0.8; }
     .grid-3, .grid-2 { grid-template-columns: 1fr; }
     .book-feature { grid-template-columns: 1fr; text-align: center; }
     .about-grid { grid-template-columns: 1fr; text-align: center; }
-    .showcase-grid { grid-template-columns: 1fr; max-width: 480px; }
+    .showcase-grid { justify-content: flex-start; padding-left: 20px; padding-right: 20px; }
+    .showcase-card { flex: 0 0 220px; max-width: 220px; }
     .articles-grid { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
     .footer-social { flex-wrap: wrap; }
