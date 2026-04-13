@@ -1088,6 +1088,8 @@ const LIKERT = [
 // ===== STATE =====
 let currentQ = 0;
 let answers = new Array(30).fill(null);
+let lastScores = null;   // populated by showResults() so submitEmail() can access scores
+let lastTotalRaw = null;
 
 // ===== NAVIGATION =====
 function startAssessment() {
@@ -1385,6 +1387,10 @@ function buildRadarChart(scores) {
 function showResults() {
   const { scores, overall, totalRaw } = calculateScores();
 
+  // Persist for submitEmail() to include in the MailerLite payload
+  lastScores = scores;
+  lastTotalRaw = totalRaw;
+
   // Save scores to localStorage
   localStorage.setItem('remoteAssessment', JSON.stringify({ scores, overall, totalRaw, date: new Date().toISOString() }));
 
@@ -1501,30 +1507,20 @@ function showResults() {
 
     <div class="upsell-section">
       <div class="upsell-card animate-in" style="animation-delay: 1.1s">
-        <h3>Unlock Your Full Neurobiological Report</h3>
-        <div class="upsell-price">$14.99</div>
+        <h3>Your Scores Are the Map. The Book Is the Route.</h3>
+        <p style="color:var(--text-dim);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto 24px;">
+          The 90-Day Remote Reset — the full recovery protocol for every dimension you just scored — is in <em>Your Brain on Burnout</em>. Chapter 15 maps your three highest sections directly to targeted, week-by-week interventions. Not generic advice. Yours specifically.
+        </p>
         <ul class="upsell-features">
-          <li>Personalized 15-page PDF report with your complete REMOTE profile</li>
-          <li>Neuroscience explanations for each of your six stress dimensions</li>
-          <li>Practical step-by-step recovery protocols for each dimension — what to do this week, this month, and long-term</li>
-          <li>Targeted interventions matched to YOUR specific risk pattern — not generic advice</li>
-          <li>Evidence-based daily routines: morning anchors, notification redesign, spatial context fixes, and stress cycle completion rituals</li>
-          <li>How you compare with 5,000+ remote workers who've taken this assessment</li>
-          <li>Concrete 30-day action plan to reduce your highest-risk dimensions</li>
+          <li>The neuroscience behind each of the 6 REMOTE stressors — what is actually happening in your brain</li>
+          <li>Week-by-week intervention protocols matched to your exact score pattern</li>
+          <li>The HPA axis reset — how to rebuild the cortisol off-ramp remote work removed</li>
+          <li>Brain-Smart Leadership frameworks for managers navigating team burnout</li>
+          <li>The Digital Resilience toolkit: attention redesign, co-regulation substitutes, spatial anchors</li>
         </ul>
-        <a href="https://lanawray.gumroad.com/l/burnout-report" target="_blank" rel="noopener" class="upsell-btn">
-          Get My Full Report
+        <a href="https://www.amazon.com/dp/B0GPF3NLQ4" target="_blank" rel="noopener" class="upsell-btn">
+          Get the Book on Amazon
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <div class="team-card animate-in" style="animation-delay: 1.2s">
-        <h3>Team Burnout Assessment</h3>
-        <p>Run the REMOTE Assessment across your entire team. Get aggregate risk profiles, department comparisons, and targeted organizational interventions.</p>
-        <div class="team-price">From $149</div>
-        <a href="https://lanawray.gumroad.com/l/team-assessment" target="_blank" rel="noopener" class="team-btn">
-          Learn More — For HR Leaders
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -1556,6 +1552,16 @@ async function submitEmail(e) {
     body.append('fields[email]', email);
     body.append('ml-submit', '1');
     body.append('anticsrf', 'true');
+    // Append REMOTE dimension scores so MailerLite segments by result
+    if (lastScores && lastTotalRaw !== null) {
+      const dimMap = { R: 'role_blur', E: 'empathy_depletion', M: 'micro_surveillance', O: 'osmotic_loneliness', T: 'techno_overload', E2: 'escapelessness' };
+      Object.entries(lastScores).forEach(([key, dim]) => {
+        const fieldName = dimMap[key] || key.toLowerCase();
+        body.append(`fields[remote_${fieldName}]`, dim.raw);
+      });
+      body.append('fields[remote_total_score]', lastTotalRaw);
+      body.append('fields[remote_burnout_level]', getTotalRisk(lastTotalRaw).level);
+    }
     const res = await fetch('https://assets.mailerlite.com/jsonp/2134096/forms/181828963653388273/subscribe', {
       method: 'POST',
       body
