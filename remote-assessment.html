@@ -67,10 +67,54 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===== SITE NAV — mirrors style.css exactly ===== */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  height: 64px;
+}
+.site-nav .nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.site-nav .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--orange) !important;
+  text-decoration: none; letter-spacing: 2px;
+}
+.site-nav .nav-links { display: flex; gap: 32px; }
+.site-nav .nav-links a {
+  color: var(--text-dim); font-size: 14px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 1px;
+  text-decoration: none; transition: color var(--transition);
+}
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a.active { color: var(--text); }
+.site-nav .menu-btn {
+  display: none; background: none; border: none;
+  color: var(--text); font-size: 24px; cursor: pointer; padding: 4px 8px;
+}
+
+@media (max-width: 768px) {
+  .site-nav .menu-btn { display: block; }
+  .site-nav .nav-links {
+    display: none; position: absolute; top: 64px; left: 0; right: 0;
+    background: var(--bg); flex-direction: column;
+    padding: 24px; gap: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .site-nav .nav-links.open { display: flex; }
+}
 
 :root {
   --bg: #0F172A;
@@ -112,6 +156,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 60px 0;
+  /* 64px clearance for the fixed site nav */
+  padding-top: 124px;
   opacity: 1;
   transition: opacity 0.5s ease;
 }
@@ -217,7 +263,7 @@ h1 .highlight {
 
 .progress-container {
   position: fixed;
-  top: 0;
+  top: 64px; /* sits directly below the 64px site nav */
   left: 0;
   right: 0;
   z-index: 100;
@@ -262,7 +308,8 @@ h1 .highlight {
 }
 
 .question-area {
-  padding-top: 100px;
+  /* 64px site nav + ~72px progress bar = 136px; add breathing room → 168px */
+  padding-top: 168px;
   max-width: 680px;
   margin: 0 auto;
   padding-left: 24px;
@@ -920,6 +967,22 @@ h1 .highlight {
 </style>
 </head>
 <body>
+
+<!-- ===== SITE NAV ===== -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">LW</a>
+    <div class="nav-links" id="siteNavLinks">
+      <a href="index.html">Home</a>
+      <a href="remote-assessment.html" class="active">Burnout Test</a>
+      <a href="books.html">Shop</a>
+      <a href="free.html">Free Resources</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle navigation">☰</button>
+  </div>
+</nav>
 
 <!-- ===== LANDING ===== -->
 <section id="landing" class="section">
@@ -1580,6 +1643,17 @@ async function submitEmail(e) {
     if (errEl) errEl.style.display = 'block';
   }
 }
+
+// ===== MOBILE NAV =====
+function toggleMenu() {
+  document.getElementById('siteNavLinks').classList.toggle('open');
+}
+// Close menu when a nav link is tapped on mobile
+document.getElementById('siteNavLinks').querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('siteNavLinks').classList.remove('open');
+  });
+});
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
