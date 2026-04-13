@@ -64,6 +64,7 @@
 </script>
 -->
 
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -726,6 +727,37 @@ h1 .highlight {
   font-weight: 600;
   margin-top: 12px;
   font-size: 0.9rem;
+}
+
+.email-success-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 16px 24px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius);
+  color: var(--green);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.email-success-msg svg {
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.email-error-msg {
+  margin-top: 12px;
+  padding: 12px 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius);
+  color: #EF4444;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 /* Upsell */
@@ -1452,40 +1484,19 @@ function showResults() {
     <div class="email-capture animate-in" style="animation-delay: 1s">
       <h3>Get Your Free Burnout Insights</h3>
       <p>Evidence-based tips for your highest-risk dimensions, delivered to your inbox.</p>
-      <!-- MailerLite Embedded Form -->
-      <div id="mlb2-38417353" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-38417353">
-        <div class="ml-form-align-center">
-          <div class="ml-form-embedWrapper embedForm">
-            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-              <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2134096/forms/181828963653388273/subscribe" data-code="" method="post" target="_blank">
-                <div class="ml-form-formContent">
-                  <div class="ml-form-fieldRow ml-last-item">
-                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="your@email.com" autocomplete="email" style="background:#1E293B;color:#E2E8F0;border:1px solid #334155;border-radius:8px;padding:14px 18px;font-size:16px;width:100%;box-sizing:border-box;">
-                    </div>
-                  </div>
-                </div>
-                <input type="hidden" name="ml-submit" value="1">
-                <input type="hidden" name="anticsrf" value="true">
-                <div class="ml-form-embedSubmit" style="margin-top:12px;">
-                  <button type="submit" class="primary" style="background:#F97316;color:#fff;border:none;border-radius:8px;padding:14px;font-size:16px;font-weight:700;width:100%;cursor:pointer;">Get Free Insights</button>
-                </div>
-              </form>
-            </div>
-            <div class="ml-form-successBody row-success" style="display:none">
-              <div class="ml-form-successContent" style="text-align:center;padding:20px;">
-                <h4 style="color:#F97316;font-size:20px;">Thank you!</h4>
-                <p style="color:#E2E8F0;">Check your inbox for burnout insights.</p>
-              </div>
-            </div>
-          </div>
+      <div id="emailFormWrap">
+        <form class="email-form" onsubmit="submitEmail(event)">
+          <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" autocomplete="email" required>
+          <button type="submit" class="email-submit" id="emailSubmitBtn">Get Free Insights</button>
+        </form>
+        <div id="emailSuccess" class="email-success-msg" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M20 6L9 17l-5-5"/></svg>
+          Thank you! Your results have been sent to your email.
+        </div>
+        <div id="emailError" class="email-error-msg" style="display:none">
+          Something went wrong — please try again.
         </div>
       </div>
-      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"><\/script>
-      <script>
-        function ml_webform_success_38417353(){var $=ml_jQuery||jQuery;$('.ml-subscribe-form-38417353 .row-success').show();$('.ml-subscribe-form-38417353 .row-form').hide();}
-        fetch("https://assets.mailerlite.com/jsonp/2134096/forms/181828963653388273/takel");
-      <\/script>
     </div>
 
     <div class="upsell-section">
@@ -1531,6 +1542,38 @@ function showResults() {
 }
 
 // Email handled by MailerLite embedded form
+
+// ===== EMAIL SUBMISSION =====
+async function submitEmail(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email) return;
+  const btn = document.getElementById('emailSubmitBtn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const body = new FormData();
+    body.append('fields[email]', email);
+    body.append('ml-submit', '1');
+    body.append('anticsrf', 'true');
+    const res = await fetch('https://assets.mailerlite.com/jsonp/2134096/forms/181828963653388273/subscribe', {
+      method: 'POST',
+      body
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('emailFormWrap').querySelector('form').style.display = 'none';
+      document.getElementById('emailSuccess').style.display = 'flex';
+    } else {
+      throw new Error('API error');
+    }
+  } catch (err) {
+    btn.textContent = 'Get Free Insights';
+    btn.disabled = false;
+    const errEl = document.getElementById('emailError');
+    if (errEl) errEl.style.display = 'block';
+  }
+}
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
