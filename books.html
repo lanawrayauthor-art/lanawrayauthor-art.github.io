@@ -186,17 +186,15 @@
 
         </div>
 
-        <!-- Waitlist -->
+        <!-- Waitlist Email Capture -->
         <div style="text-align:center;margin-top:40px;">
-            <p style="font-size:15px;color:var(--text);font-weight:600;margin-bottom:12px;">Get notified when they launch.</p>
+            <p style="font-size:15px;color:var(--text);font-weight:600;margin-bottom:16px;">Get notified when they launch.</p>
             <div class="ml-embedded" data-form="waitlist-books"></div>
-            <script>
-            (function(){
-                if(window.ml) {
-                    ml('webforms', '7048498', 'z9j2r8', 'waitlist-books');
-                }
-            })();
-            </script>
+            <form class="waitlist-form" id="waitlistFormBooks" onsubmit="return handleWaitlist(event, 'waitlistFormBooks')">
+                <input type="email" name="email" placeholder="your@email.com" required>
+                <button type="submit" class="btn btn-primary">Join the Waitlist</button>
+            </form>
+            <p class="waitlist-success" id="waitlistSuccessBooks" style="display:none;color:var(--accent);font-size:14px;margin-top:12px;font-weight:600;">You're on the list. We'll email you when they drop.</p>
         </div>
     </div>
 </section>
@@ -231,6 +229,21 @@
 </footer>
 
 <script>function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');}</script>
+<!-- Waitlist Handler -->
+<script>
+function handleWaitlist(e, formId) {
+    e.preventDefault();
+    var form = document.getElementById(formId);
+    var email = form.querySelector('input[type="email"]').value;
+    if (window.ml) { ml('subscribe', { email: email }); }
+    form.style.display = 'none';
+    var successEl = form.nextElementSibling;
+    if (successEl && successEl.classList.contains('waitlist-success')) {
+        successEl.style.display = 'block';
+    }
+    return false;
+}
+</script>
 <!-- MailerLite Universal -->
 <script>
 (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])

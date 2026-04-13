@@ -257,6 +257,8 @@ a:hover { opacity: 0.8; }
     overflow: hidden;
     scroll-snap-align: center;
     transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 .showcase-card:hover {
     border-color: var(--accent);
@@ -306,6 +308,12 @@ a:hover { opacity: 0.8; }
 }
 .showcase-body {
     padding: 16px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.showcase-body .showcase-subtitle {
+    flex: 1;
 }
 .showcase-badge {
     display: inline-block;
@@ -497,6 +505,37 @@ a:hover { opacity: 0.8; }
 }
 .footer-social a:hover { color: var(--accent); opacity: 1; }
 .footer-social svg { flex-shrink: 0; }
+
+/* === WAITLIST FORM === */
+.waitlist-form {
+    display: flex;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto;
+    justify-content: center;
+}
+.waitlist-form input[type="email"] {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.waitlist-form input[type="email"]:focus {
+    border-color: var(--accent);
+}
+.waitlist-form input[type="email"]::placeholder {
+    color: var(--text-muted);
+}
+.waitlist-form .btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
 
 /* === MOBILE === */
 @media (max-width: 768px) {
